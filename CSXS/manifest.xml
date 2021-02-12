@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ExtensionManifest
+        ExtensionBundleId="com.atomic.cep-barebones"
+        ExtensionBundleVersion="1.0.0"
+        Version="7.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ExtensionList>
+        <Extension Id="com.atomic.cep-barebones.panel" Version="1.0.0" />
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <Host Name="ILST" Version="[19.0,99.9]" />
+        </HostList>
+        <LocaleList>
+            <Locale Code="All" />
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="9.0" />
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="com.atomic.cep-barebones.panel">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./client/index.html</MainPath>
+                    <CEFCommandLine>
+                        <Parameter>--enable-nodejs</Parameter>
+                        <Parameter>--mixed-context</Parameter>
+                    </CEFCommandLine>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>/
+                    <Menu>CEP Barebones</Menu>
+                    <Geometry>
+                        <Size>
+                            <Height>560</Height>
+                            <Width>324</Width>
+                        </Size>
+                        <MaxSize>
+                            <Height>560</Height>
+                            <Width>324</Width>
+                        </MaxSize>
+                        <MinSize>
+                            <Height>560</Height>
+                            <Width>324</Width>
+                        </MinSize>
+                    </Geometry>
+                    <Icons>
+                        <Icon Type="Normal">./icon.png</Icon>
+                        <Icon Type="RollOver">./icon.png</Icon>
+                        <Icon Type="DarkNormal">./icon.png</Icon>
+                        <Icon Type="DarkRollOver">./icon.png</Icon>
+                    </Icons>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+</ExtensionManifest>

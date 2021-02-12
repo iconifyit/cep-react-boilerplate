@@ -1,0 +1,19 @@
+input#search {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 21px;
+    margin: 0;
+    padding: 3px 5px;
+    color: #333;
+    border: 1px solid #CCCCCC;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    outline: none;
+    transition: all .3s;
+
+    padding-left: 21px;
+}

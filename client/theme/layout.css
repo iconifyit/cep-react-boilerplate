@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+
+:root {
+    --space-between : 3px;
+    --body-width    : 304px
+}
+
+body {
+    background-color : #535353;
+    padding          : 10px 0;
+    overflow         : hidden;
+    margin           : 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px 10px;
+    height : 545px;
+    /* background-color : #777 !important; */
+}
+
+body header {
+
+    width : 100%;
+}
+
+#content-body {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#main-content {
+    position: relative;
+    /*height: 100vh;*/
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+select#sessions {
+    width: 100%;
+}
+
+section {
+    padding: 5px 0;
+}
+
+#main,
+section.content {
+    padding: 0;
+    /*     overflow-y : scroll; */
+    position : relative;
+    padding-bottom: 50%;
+}
+
+#icons {
+    display         : flex;
+    flex-wrap       : wrap;
+    flex-direction  : row;
+    justify-content : space-between;
+
+    width           : var(--body-width) !important;
+    list-style-type : none  !important;
+    padding         : 0     !important;
+    margin          : 0     !important;
+    height          : auto;
+}
+
+#icons li {
+    margin          : 0 0 8px 0 !important;
+}
+
+#primary-buttons {
+    display         : flex;
+    flex-wrap       : wrap;
+    flex-direction  : row;
+    justify-content : space-between;
+
+    width           : var(--body-width) !important;
+    list-style-type : none  !important;
+    padding         : 0     !important;
+    margin          : 0 0 var(--space-between) 0 !important;
+    height          : auto;
+}
+
+#primary-buttons span,
+#primary-buttons span button {
+    margin          : 0 !important;
+}
+
+#iconset-controls,
+#iconjar-controls {
+    display         : flex;
+    flex-wrap       : wrap;
+    flex-direction  : row;
+    justify-content : space-between;
+
+    width           : var(--body-width) !important;
+    padding         : 0     !important;
+    margin          : 0 0 var(--space-between) 0 !important;
+    height          : auto;
+}
+
+#search,
+#search-block,
+#search-field-block {
+    width : var(--body-width) !important;
+}
