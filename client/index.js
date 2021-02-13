@@ -5,6 +5,7 @@ const ReactDOM          = require('react-dom')
     , fs                = require('fs')
     , path              = require('path')
     , FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js')
+    , ThemeSwitcher     = require('client/lib/ThemeSwitcher/ThemeSwitcher.js')
     , App = require('client/components/App.js');
 ;
 
@@ -41,6 +42,11 @@ try {
 catch(e) {
     console.error('[JSX]', e)
 }
+
+/**
+ * Load the ThemeSwitcher.
+ */
+ThemeSwitcher();
 
 /**
  * Create the Flyout menu.

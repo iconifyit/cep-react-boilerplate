@@ -157,53 +157,10 @@ const Config = {
         target   : 'dist/client/theme/css/',
         files    : [
             '!client/theme/css/client.all.css'
-            , 'client/theme/font/stylesheet.css'
             , 'client/theme/css/topcoat-desktop-dark.css'
-            , 'client/theme/css/main.css'
-            , 'client/theme/css/brackets.css'
-            , 'client/theme/material-design-icons/iconfont/material-icons.css'
-            , 'client/theme/font/icomatic.css'
-            , 'client/theme/style.css'
-            , 'client/theme/layout.css'
+            , 'client/theme/default.css'
         ],
         substitutions : [
-            {
-                search  : /MaterialIcons-Regular\.([ttf|eof|woff2|woff]+)/g,
-                replace : function(match) {
-                    return `../material-design-icons/iconfont/${match}`
-                }
-            },
-            {
-                search  : /icomatic\.([ttf|eof|woff2|woff|svg#icomatic]+)/g,
-                replace : function(match) {
-                    return `../font/${match}`
-                }
-            },
-            {
-                search  : /(url\(.*sourcesanspro)/g,
-                replace : function(match) {
-                    return match
-                        .replace('../font/', '')
-                        .replace('../', '')
-                        .replace('./', '')
-                        .replace('sourcesanspro', '../font/sourcesanspro');
-                }
-            },
-            {
-                search  : /(url\(.*sourcecodepro)/g,
-                replace : function(match) {
-                    return match
-                        .replace('../font/', '')
-                        .replace('../', '')
-                        .replace('./', '')
-                        .replace('sourcecodepro', '../font/sourcecodepro');
-                }
-            },
-
-            // src: url('sourcecodepro-regular-webfont.eot');
-
-
-            // source-code-pro
             {
                 search  : /(url\(.*img\/placeholder.png.*\))/g,
                 replace : function(match) {
@@ -213,14 +170,7 @@ const Config = {
                         .replace('./', '')
                         .replace('img/', '../img/');
                 }
-            },
-            {
-                search  : /(url\(.*images\/ui-)/g,
-                replace : function(match) {
-                    return match
-                        .replace('ui-', 'lib/jquery-ui/images/ui-');
-                }
-            },
+            }
         ]
     }
 }
@@ -413,7 +363,7 @@ gulp.task('styles', wrapPipe(function(success, error) {
     return gulp.src(Config.styles.files)
         .pipe(concat(Config.styles.fileName).on('error', error))
         .pipe(doSubstitutions(Config.styles.substitutions))
-        .pipe(cleancss())
+        // .pipe(cleancss())
         .pipe(gulp.dest(Config.styles.target))
         .on('success', success);
 }));

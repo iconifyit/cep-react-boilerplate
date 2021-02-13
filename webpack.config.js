@@ -3,8 +3,6 @@ const
 	, path = require('path')
   	, webpack = require('webpack')
   	, MiniCssExtractPlugin = require('mini-css-extract-plugin')
-  	// , TerserPlugin = require('terser-webpack-plugin')
-  	// , workboxPlugin = require('workbox-webpack-plugin')
 	, HtmlWebpackPlugin = require("html-webpack-plugin")
 	, CopyWebpackPlugin = require('copy-webpack-plugin')
 	, { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -75,16 +73,6 @@ module.exports = {
 					force: true
 				},
 				{
-					from : 'client/theme/img/**/*',
-					to   : '',
-					force: true,
-				},
-				{
-					from : 'client/theme/material-design-icons/iconfont/**/*',
-					to   : '',
-					force: true
-				},
-				{
 					from : 'client/JSX.js',
 					to   : 'client/',
 					force: true,
@@ -102,12 +90,7 @@ module.exports = {
 					from : 'icons/**/*',
 					to   : '',
 					force: true
-				},
-                // {
-				// 	from : 'host/**/*',
-				// 	to   : '',
-				// 	force: true
-				// },
+				}
 			],
 			options: {
 				concurrency: 100,

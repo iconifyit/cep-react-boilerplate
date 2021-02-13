@@ -3,7 +3,7 @@ const React = require('react');
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <div className="App-header">
           <h2>Welcome to React</h2>
         </div>
