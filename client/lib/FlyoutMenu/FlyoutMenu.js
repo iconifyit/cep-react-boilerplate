@@ -8,6 +8,9 @@ function FlyoutMenu() {
 
     "use strict";
 
+
+    this.version = "0.2";
+
     /**
      * The root menu.
      * @type {jQuery|HTMLElement}
@@ -27,17 +30,18 @@ FlyoutMenu.prototype.divider = function() {
 
 /**
  * Add a MenuItem
- * @param id
+ * @param menuId
  * @param label
  * @param enabled
  * @param checked
  */
-FlyoutMenu.prototype.add = function(id, label, enabled, checked) {
-    this.Menu.items.push(MenuItem(id, label, enabled, checked));
-    this.Menu.state[id] = {
+FlyoutMenu.prototype.add = function(menuId, label, enabled, checked, checkable) {
+    this.Menu.items.push(MenuItem(menuId, label, enabled, checked));
+    this.Menu.state[menuId] = {
         enabled : enabled,
         checked : checked,
-        text    : label
+        text    : label,
+        checkable : checked || checkable
     };
 }
 
@@ -45,8 +49,19 @@ FlyoutMenu.prototype.add = function(id, label, enabled, checked) {
  * Get the Menu state object.
  * @returns {*}
  */
-FlyoutMenu.prototype.getState = function() {
+FlyoutMenu.prototype.getState = function(menuId) {
+    if (typeof this.Menu.state[menuId] !== 'undefined') {
+        return this.Menu.state[menuId]
+    }
     return this.Menu.state;
+}
+
+/**
+ * Get the Menu state object.
+ * @returns {*}
+ */
+FlyoutMenu.prototype.setState = function(menuId, key, value) {
+    this.Menu.state[menuId][key] = value;
 }
 
 /**
@@ -54,7 +69,25 @@ FlyoutMenu.prototype.getState = function() {
  * @param clickHandler
  */
 FlyoutMenu.prototype.setHandler = function(clickHandler) {
-    csInterface.addEventListener('com.adobe.csxs.events.flyoutMenuClicked', clickHandler);
+    const self = this;
+    csInterface.addEventListener('com.adobe.csxs.events.flyoutMenuClicked', (e) => {
+        const menuId = e.data.menuId;
+        const menuName = e.data.menuName;
+        console.log('e', e);
+        let menuState;
+        console.log('this.getState(menuId)', self.getState(menuId))
+        if (menuState = self.getState(menuId)) {
+            console.log('Got menu state', menuState)
+            if (menuState.checkable) {
+                console.log('It is checkable', menuName, ! menuState.checked)
+                self.setState(menuId, 'checked', ! menuState.checked);
+                csInterface.updatePanelMenuItem(menuName, true, menuState.checked);
+            }
+        }
+        clickHandler(e);
+    });
+
+    // csInterface.updatePanelMenuItem("Checkable Menu Item", true, checkableMenuItem_isChecked);
 }
 
 /**
