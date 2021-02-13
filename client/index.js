@@ -14,8 +14,14 @@ const ReactDOM          = require('react-dom')
  */
 require('client/lib/jsx-console/jsx-console.js')
 
-
+/**
+ * Attach csInterface to the global window object.
+ */
 window.csInterface = csInterface
+
+/**
+ * Global shortcut to the Extension Path.
+ */
 window.kEXT_PATH   = csInterface.getSystemPath(window.SystemPath.EXTENSION);
 
 /**
@@ -36,5 +42,14 @@ catch(e) {
     console.error('[JSX]', e)
 }
 
+/**
+ * Create the Flyout menu.
+ * Update the menu in /cep-barebones/client/lib/FlyoutMenu/FlyoutMenuImpl.js
+ */
 new FlyoutMenuImpl(true);
+
+/**
+ * Render the panel HTML.
+ * Add your own components in /cep-barebones/client/components/
+ */
 ReactDOM.render(<App />, document.getElementById('app'));
