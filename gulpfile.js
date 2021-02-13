@@ -51,36 +51,67 @@ const Config = {
     host : {
         fileName : 'host.all.jsx',
         target   : 'dist/host',
-        files    : [
+        files : [
             '!host/host.all.jsx'
-            , 'host/core/polyfills.js'
-            , 'host/core/JSON.jsx'
-            , 'host/core/Utils.jsx'
-            , 'host/core/Logger.jsx'
-            , 'host/core/Helpers.js'
-            , 'host/core/functions.js'
-            , 'host/Configuration.jsx'
-            , 'host/HostResponse.js'
-            , 'host/core/Strings.js'
-            , 'host/core/FileList.js'
-            , 'host/core/Exporter.js'
-            , 'host/core/Import.js'
+            // , 'host/core/polyfills.js'
+            // , 'host/core/JSON.jsx'
+            // , 'host/core/Utils.jsx'
+            // , 'host/core/Logger.jsx'
+            // , 'host/core/Helpers.js'
+            // , 'host/core/functions.js'
+            // , 'host/Configuration.jsx'
+            // , 'host/HostResponse.js'
+            // , 'host/core/Strings.js'
+            // , 'host/core/FileList.js'
+            // , 'host/core/Exporter.js'
+            // , 'host/core/Import.js'
 
-            , 'host/core/Iterator.js'
-            , 'host/core/ArtboardsIterator.js'
-            , 'host/core/ArtboardLabel.js'
-            , 'host/core/FileList.js'
-            , 'host/core/IconImporter.js'
-            , 'host/core/Observable.js'
+            // , 'host/core/Iterator.js'
+            // , 'host/core/ArtboardsIterator.js'
+            // , 'host/core/ArtboardLabel.js'
+            // , 'host/core/FileList.js'
+            // , 'host/core/IconImporter.js'
+            // , 'host/core/Observable.js'
 
-            , 'host/core/shared.js'
-            , 'host/core/PlugPlugExternalObject.js'
-            // , 'host/vendor/is_js/is.min.js'
-            , 'host/vendor/is.cleaned.js'
+            // , 'host/core/shared.js'
+            // , 'host/core/PlugPlugExternalObject.js'
+            // // , 'host/vendor/is_js/is.min.js'
+            // , 'host/vendor/is.cleaned.js'
 
             // , 'host/core/Console.jsx'
-            , 'host/Host.jsx'
+            , 'host/index.jsx'
         ]
+        // files    : [
+        //     '!host/host.all.jsx'
+        //     , 'host/core/polyfills.js'
+        //     , 'host/core/JSON.jsx'
+        //     , 'host/core/Utils.jsx'
+        //     , 'host/core/Logger.jsx'
+        //     , 'host/core/Helpers.js'
+        //     , 'host/core/functions.js'
+        //     , 'host/Configuration.jsx'
+        //     , 'host/HostResponse.js'
+        //     , 'host/core/Strings.js'
+        //     , 'host/core/FileList.js'
+        //     , 'host/core/Exporter.js'
+        //     , 'host/core/Import.js'
+
+        //     , 'host/core/Iterator.js'
+        //     , 'host/core/ArtboardsIterator.js'
+        //     , 'host/core/ArtboardLabel.js'
+        //     , 'host/core/FileList.js'
+        //     , 'host/core/IconImporter.js'
+        //     , 'host/core/Observable.js'
+
+        //     , 'host/core/shared.js'
+        //     , 'host/core/PlugPlugExternalObject.js'
+        //     // , 'host/vendor/is_js/is.min.js'
+        //     , 'host/vendor/is.cleaned.js'
+
+        //     // , 'host/core/Console.jsx'
+        //     // , 'host/Host.jsx'
+        //     , 'host/index.jsx'
+        // ]
     },
     client : {
         fileName : 'main.min.js',
@@ -128,7 +159,6 @@ const Config = {
             '!client/theme/css/client.all.css'
             , 'client/theme/font/stylesheet.css'
             , 'client/theme/css/topcoat-desktop-dark.css'
-            , 'client/lib/jquery-ui/jquery-ui.css'
             , 'client/theme/css/main.css'
             , 'client/theme/css/brackets.css'
             , 'client/theme/material-design-icons/iconfont/material-icons.css'
@@ -159,6 +189,21 @@ const Config = {
                         .replace('sourcesanspro', '../font/sourcesanspro');
                 }
             },
+            {
+                search  : /(url\(.*sourcecodepro)/g,
+                replace : function(match) {
+                    return match
+                        .replace('../font/', '')
+                        .replace('../', '')
+                        .replace('./', '')
+                        .replace('sourcecodepro', '../font/sourcecodepro');
+                }
+            },
+
+            // src: url('sourcecodepro-regular-webfont.eot');
+
+
+            // source-code-pro
             {
                 search  : /(url\(.*img\/placeholder.png.*\))/g,
                 replace : function(match) {
@@ -322,15 +367,25 @@ gulp.task('host', wrapPipe(function(success, error) {
         fileList.push(`${tmpdir}/${fileName}`);
     });
 
-    console.log(`Gulp tmp dir is ${tmpdir}/${dirname}`);
+    ncp("host", "dist/host", {clobber: true}, function(err) {
+        if (err) {
+            console.trace();
+            console.log(err);
+        }
 
-    gulp.src(fileList)
-        .pipe(concat(Config.host.fileName).on('error', error))
-        .pipe(header('var kDEBUG = false;\n\n'))
-        .pipe(gulp.dest(Config.host.target))
-        .pipe(uglify())
-        .pipe(rename('host.ugly.jsx'))
-        .pipe(gulp.dest(Config.host.target))
+        console.log('host core dir copied');
+
+        console.log(`Gulp tmp dir is ${tmpdir}/${dirname}`);
+
+        gulp.src(fileList)
+            .pipe(concat(Config.host.fileName).on('error', error))
+            .pipe(header('var kDEBUG = false;\n\n'))
+            .pipe(gulp.dest(Config.host.target))
+            .pipe(uglify())
+            .pipe(rename('host.ugly.jsx'))
+            .pipe(gulp.dest(Config.host.target))
+    })
+    
 }));
 
 /**
@@ -545,8 +600,8 @@ gulp.task('build', gulp.series([
     'client',
     'host',
     'styles',
-    'aes',
-    'client-aes',
-    'host-aes',
+    // 'aes',
+    // 'client-aes',
+    // 'host-aes',
     'platform'
 ]));

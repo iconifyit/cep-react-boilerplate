@@ -1,0 +1,93 @@
+{
+  "menu": [
+    {
+      "id": "disableToolTips",
+      "label": "Disable Tooltips",
+      "enabled": true,
+      "checkable": true,
+      "checked": false
+    },
+    {
+      "label" : "---"
+    },
+    {
+      "id": "openInIconJar",
+      "label": "Open in IconJar",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "showInFinder",
+      "label": "Show in Finder",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "saveIconJarAs",
+      "label": "Save IconJar As ...",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "label": "---"
+    },
+    {
+      "id": "placeIcon",
+      "label": "Place Icon",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "openIcon",
+      "label": "Open Icon",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "editIcon",
+      "label": "Edit Meta Data",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "label": "---"
+    },
+    {
+      "id": "addIcon",
+      "label": "Add Icon",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "addSelection",
+      "label": "Add Selection",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "id": "replaceIcon",
+      "label": "Replace Icon",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    },
+    {
+      "label": "---"
+    },
+    {
+      "id": "deleteIcon",
+      "label": "Delete Icon",
+      "enabled": true,
+      "checkable": false,
+      "checked": false
+    }
+  ]
+}

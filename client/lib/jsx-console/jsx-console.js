@@ -39,7 +39,7 @@ class JsxConsole {
     constructor() {
 
         csInterface.evalScript(this.jsxConsoleCode(), function(result) {
-            console.log('JsxConsole loaded?', result)
+            console.log('JsxConsole loaded?')
         })
 
         csInterface.removeEventListener('jsx.console', this.handler);

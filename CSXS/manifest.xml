@@ -49,10 +49,10 @@
                         </MinSize>
                     </Geometry>
                     <Icons>
-                        <Icon Type="Normal">./icon.png</Icon>
-                        <Icon Type="RollOver">./icon.png</Icon>
-                        <Icon Type="DarkNormal">./icon.png</Icon>
-                        <Icon Type="DarkRollOver">./icon.png</Icon>
+                        <Icon Type="Normal">./icons/icon-dog.png</Icon>
+                        <Icon Type="RollOver">./icons/icon-dog.png</Icon>
+                        <Icon Type="DarkNormal">./icons/icon-dog.png</Icon>
+                        <Icon Type="DarkRollOver">./icons/icon-dog.png</Icon>
                     </Icons>
                 </UI>
             </DispatchInfo>
