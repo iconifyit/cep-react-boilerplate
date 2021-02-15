@@ -23,7 +23,7 @@ window.csInterface = csInterface
 /**
  * Global shortcut to the Extension Path.
  */
-window.kEXT_PATH   = csInterface.getSystemPath(window.SystemPath.EXTENSION);
+window.kEXT_PATH = csInterface.getSystemPath(window.SystemPath.EXTENSION);
 
 /**
  * JSX.js makes life a lot easier. You do not need to restart your CC app to enable 
