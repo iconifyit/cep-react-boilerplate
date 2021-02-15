@@ -1,0 +1,7 @@
+<ExtensionList>
+    <Extension Id="com.atomic.cep-barebones.panel">
+        <HostList>
+            <Host Name="ILST" Port="8090"/>
+        </HostList>
+    </Extension>
+</ExtensionList>
