@@ -19,7 +19,8 @@
     "CSInterface": "client/lib/CSInterface"
   },
   "scripts": {
-    "dev": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development && gulp build",
+    "host": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development --config=webpack.host.js",
+    "dev": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development && npm run host",
     "build": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production && gulp build",
     "test": "node jest"
   },

@@ -9,6 +9,11 @@ const ReactDOM          = require('react-dom')
     , App = require('client/components/App.js');
 ;
 
+const darkTheme = require('theme/css/topcoat-desktop-dark.min.css');
+const lightTheme = require('theme/css/topcoat-desktop-light.min.css');
+const styles = require('theme/css/styles.css')
+const fontCss = require('theme/font/stylesheet.css');
+
 /**
  * This library allows you to write to the CEF/brower console from the JSX context. 
  * All of your logging in a single place.
@@ -31,10 +36,13 @@ window.kEXT_PATH = csInterface.getSystemPath(window.SystemPath.EXTENSION);
  * If you need to load more jsx files, you can either do it here or, better, 
  * in index.jsx (there are examples in that file already).
  */
+const script = `
+    createHostInstance()
+`
 try {
     jsx.file('host.all.jsx', (result) => {
-        console.log('[JSX] Load host/host.all.jsx')
-        csInterface.evalScript('createHostInstance()', (result) => {
+        console.log('[JSX] Load host/host.all.jsx', result)
+        csInterface.evalScript(script, (result) => {
             console.log('createHostInstance', result);
         })
     });
