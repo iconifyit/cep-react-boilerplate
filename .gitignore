@@ -107,3 +107,6 @@ dist
 .tern-port
 
 trash
+
+scratch*
+package-lock.json
