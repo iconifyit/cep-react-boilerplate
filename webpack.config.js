@@ -7,7 +7,6 @@ const
 	, CopyWebpackPlugin = require('copy-webpack-plugin')
 	, { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-// require('./host/core/shared.js');
 
 module.exports = {
 	target: 'node',
