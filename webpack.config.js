@@ -52,8 +52,8 @@ module.exports = {
 			patterns: [
 				'csxs/*',
                 {
-					from : 'client/JSX.js',
-					to   : 'client/',
+					from : 'client/lib/JSX.js',
+					to   : 'client/lib/',
 					force: true,
 				},
 				{

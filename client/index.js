@@ -6,13 +6,16 @@ const ReactDOM          = require('react-dom')
     , path              = require('path')
     , FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js')
     , ThemeSwitcher     = require('client/lib/ThemeSwitcher/ThemeSwitcher.js')
-    , App = require('client/components/App.js');
+    , App               = require('client/components/App.js')
+    , ContextMenuRouter = require('client/lib/ContextMenuRouter/ContextMenuRouter.js')
+    , ContextMenuJSON   = require('client/lib/ContextMenuRouter/ContextMenuExample.json')
 ;
 
-const darkTheme = require('theme/css/topcoat-desktop-dark.min.css');
-const lightTheme = require('theme/css/topcoat-desktop-light.min.css');
-const styles = require('theme/css/styles.css')
-const fontCss = require('theme/font/stylesheet.css');
+const darkTheme     = require('theme/css/topcoat-desktop-dark.min.css')
+    , lightTheme    = require('theme/css/topcoat-desktop-light.min.css')
+    , styles        = require('theme/css/styles.css')
+    , fontCss       = require('theme/font/stylesheet.css')
+;
 
 /**
  * This library allows you to write to the CEF/brower console from the JSX context. 
@@ -63,7 +66,25 @@ ThemeSwitcher();
 new FlyoutMenuImpl(true);
 
 /**
+ * Create the context menu router with a splinter table of menuId to callback.
+ */
+const contextMenuRouter = new ContextMenuRouter(
+    ContextMenuJSON, 
+    {
+        menuItem1 : () => {
+            console.log('Call context menu Item One')
+        },
+        menuItem2 : () => {
+            console.log('Call context menu Item Two')
+        },
+        menuItem3 : () => {
+            console.log('Call context menu Item Three')
+        }
+    }
+)
+
+/**
  * Render the panel HTML.
  * Add your own components in /cep-barebones/client/components/
  */
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App contextMenuRouter={contextMenuRouter}/>, document.getElementById('app'));
