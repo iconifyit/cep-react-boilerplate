@@ -1,11 +1,6 @@
 const path                   = require('path'),
-      webpack                = require('webpack'),
-      HtmlWebpackPlugin      = require('html-webpack-plugin'),
-      MiniCssExtractPlugin   = require('mini-css-extract-plugin'),
-      CopyWebpackPlugin      = require('copy-webpack-plugin'),
-      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
-      polyfill = require('babel-polyfill')
-
+      { CleanWebpackPlugin } = require('clean-webpack-plugin')
+      
 module.exports = {
     mode    : 'development',
     entry : {
@@ -47,10 +42,5 @@ module.exports = {
     watch: false,
     watchOptions: {
         ignored: /node_modules/
-    },
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'all'
-    //     }
-    // }
+    }
 }
