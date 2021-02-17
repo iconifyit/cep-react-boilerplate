@@ -7,7 +7,7 @@ set -o pipefail
 # ============================================================
 
 HERE=`pwd`
-NAME='icon-mason'
+NAME=${PWD##*/}
 
 echo $HERE
 
@@ -15,30 +15,12 @@ echo "[Build] - Building ${NAME} ..."
 
 DATE=`date +%s`
 CERT='selfDB.p12'
-KEY='Alias2Mocha7'
-ORG="Atomic Lotus, LLC"
+KEY='[add-your-key]'
+ORG="[add-your-org]"
 COUNTRY="US"
-CITY="Richmond"
+CITY="New York"
 DOMAIN="atomiclotus.net"
 BUNDLE_ID="$NAME"
-
-# ============================================================
-# Commit code to git repo
-# ============================================================
-
-echo "[Build] - Run git add"
-
-git add *
-
-echo "[Build] - Run git commit"
-
-git commit -m "[Build] - Commit before building packages"
-
-echo "[Build] - Run git push"
-
-git push
-
-#/usr/local/bin/node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production
 
 # ============================================================
 # Execute Gulp build to concat assets.
@@ -105,8 +87,8 @@ echo "[Build] - copy source code"
 
 cp -R dist/* build/
 
-if [ -f mason-icon.png ]; then
-  cp mason-icon.png build/
+if [ -f icon.png ]; then
+  cp icon.png build/
 fi
 
 # ============================================================
@@ -124,26 +106,6 @@ OUTPUT=$(./bin/ZXPSignCmd -sign build zxp/$NAME-$VERS.zxp ./bin/$CERT $KEY -tsa 
 echo "[Build] - ${OUTPUT}"
 
 # ============================================================
-# Build custom installers
-# ============================================================
-
-#echo "Build : Running cep-packager to create ZXP & OS Installers"
-#
-#OUTPUT=$(
-#    cep-packager \
-#        --name $NAME \
-#        --bundle-id $BUNDLE_ID \
-#        --version $VERS \
-#        --macos-resources $PWD/resources/macos \
-#        --windows-resources $PWD/resources/windows \
-#        --macos-dest $PWD/zxp/$NAME.$VERS.pkg \
-#        --windows-dest $PWD/zxp/$NAME.$VERS.exe \
-#        ./build
-#)
-#
-#echo $OUTPUT
-
-# ============================================================
 # Nuke the dist dir
 # ============================================================
 
@@ -153,32 +115,10 @@ rm -R -f build
 mkdir -p build
 
 # ============================================================
-# Copy aes source to build dir
+# Build and sign the extension.
 # ============================================================
 
-echo "[Build] - Copy AES source code to build dir"
-
-cp -R aes/* build/
-
-# ============================================================
-# Delete un-minified main.js
-# ============================================================
-
-if [ -f aes/main.js ]; then
-  rm aes/main.js
-fi
-
-# ============================================================
-# Build and sign the AES version of extension.
-# ============================================================
-
-echo "[Build] - Build and sign the AES version of ZXP extension."
-
-OUTPUT=$(./bin/ZXPSignCmd -selfSignedCert $COUNTRY $CITY "$ORG" $DOMAIN $KEY ./bin/$CERT)
-
-echo "[Build] - ${OUTPUT}"
-
-OUTPUT=$(./bin/ZXPSignCmd -sign build zxp/$NAME-$VERS.aes.zxp ./bin/$CERT $KEY -tsa https://www.safestamper.com/tsa)
+OUTPUT=$(./bin/ZXPSignCmd -sign build zxp/$NAME-$VERS.zxp ./bin/$CERT $KEY -tsa https://www.safestamper.com/tsa)
 
 # ============================================================
 # Show output
