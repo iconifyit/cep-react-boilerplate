@@ -3,7 +3,8 @@ const path                   = require('path'),
       HtmlWebpackPlugin      = require('html-webpack-plugin'),
       MiniCssExtractPlugin   = require('mini-css-extract-plugin'),
       CopyWebpackPlugin      = require('copy-webpack-plugin'),
-      { CleanWebpackPlugin } = require('clean-webpack-plugin');
+      { CleanWebpackPlugin } = require('clean-webpack-plugin'),
+      polyfill = require('babel-polyfill')
 
 module.exports = {
     mode    : 'development',
@@ -13,6 +14,9 @@ module.exports = {
     output : {
         filename : 'host.all.jsx',
         path     : path.resolve(__dirname, 'dist/host'),
+        libraryTarget: 'umd',
+		umdNamedDefine: true,
+        globalObject : '$ && $.global ? $.global : {}'
     },
     plugins : [
         new CleanWebpackPlugin()
@@ -34,7 +38,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: { "presets": [
-                        "@babel/preset-react"
+                        "@babel/preset-env"
                     ] }
                 }
             }

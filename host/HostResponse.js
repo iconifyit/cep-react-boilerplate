@@ -1,124 +1,115 @@
-var HostResponse = function(value, error) {
+var JSON = require(__dirname + '/core/JSON.jsx');
+var polyfills = require(__dirname + '/core/polyfills.js');
 
-    this.value = value;
-    this.error = error;
+class HostResponse {
+    constructor(value, error) {
+        this.value = value;
+        this.error = error;
+    
+        if (value instanceof Error) {
+            error = value;
+            this.error = error.name + ' : ' + error.message;
+            this.value = error.name + ' : ' + error.message;
+        }
 
-    if (value instanceof Error) {
-        error = value;
-        this.error = error.name + ' : ' + error.message;
-        this.value = error.name + ' : ' + error.message;
-    }
-}
-
-/**
- * Gets value of a response object.
- * @returns {string | null}
- */
-HostResponse.prototype.getValue = function() {
-    return this.value;
-}
-
-/**
- * Gets an error if exists.
- * @returns {string}
- */
-HostResponse.prototype.getError = function() {
-    return this.error;
-}
-
-/**
- * Tests if the response is an error.
- * @returns {boolean}
- */
-HostResponse.prototype.isError = function() {
-    return ! isEmpty(this.error);
-}
-
-/**
- * Gets the value of the host response.
- * @returns {{error: string, value: string}}
- */
-HostResponse.prototype.valueOf = function() {
-    return {
-        "value": this.getValue(),
-        "error": this.getError()
-    }
-}
-
-/**
- * Converts host response to JSON string.
- * @returns {string}
- */
-HostResponse.prototype.stringify = function() {
-    return JSON.stringify(this.valueOf())
-}
-
-/**
- * Parse a host response.
- * @param stringValue
- * @returns {HostResponse}
- */
-HostResponse.prototype.parse = function(stringValue) {
-
-    // console.log('HostResponse.parse(stringValue)', stringValue);
-
-    var obj, error, value;
-
-    obj = {
-        value : null,
-        error : "Parse error. " + stringValue + " is not a valid JSON string"
-    };
-
-    if (this.validate(stringValue)) {
-        obj = JSON.parse(stringValue);
-        error = '';
-        value = obj.value;
+        this.getValue   = this.getValue.bind(this);
+        this.getError   = this.getError.bind(this);
+        this.isError    = this.isError.bind(this);
+        this.valueOf    = this.valueOf.bind(this);
+        this.stringify  = this.stringify.bind(this);
+        this.validate   = this.validate.bind(this);
+        this.parse      = this.parse.bind(this);
     }
 
-    this.error = obj.error;
-    this.value = obj.value;
+    getValue() {
+        return this.value;
+    }
 
-    return this;
-}
+    getError() {
+        return this.error;
+    }
 
-/**
- * Validate the response object.
- * @param jsonString
- * @returns {boolean}
- */
-HostResponse.prototype.validate = function(jsonString) {
-    try {
-        var o = JSON.parse(jsonString);
+    isError() {
+        return (typeof this.error !== 'undefined');
+    }
 
-        // Handle non-exception-throwing cases:
-        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-        // but... JSON.parse(null) returns null, and typeof null === "object",
-        // so we must check for that, too. Thankfully, null is falsey, so this suffices:
-        if (o && typeof o === "object") {
-            return true;
+    valueOf() {
+        return {
+            "value": this.getValue(),
+            "error": this.getError()
         }
     }
-    catch(e){}
 
-    return false;
+    stringify() {
+        return JSON.stringify(this.valueOf())
+    }
+
+    validate(jsonString) {
+        try {
+            var o = JSON.parse(jsonString);
+    
+            // Handle non-exception-throwing cases:
+            // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+            // but... JSON.parse(null) returns null, and typeof null === "object",
+            // so we must check for that, too. Thankfully, null is falsey, so this suffices:
+            if (o && typeof o === "object") {
+                return true;
+            }
+        }
+        catch(e){}
+    
+        return false;
+    }
+
+    parse(stringValue) {
+
+        // console.log('HostResponse.parse(stringValue)', stringValue);
+    
+        var obj, error, value;
+    
+        obj = {
+            value : null,
+            error : "Parse error. " + stringValue + " is not a valid JSON string"
+        };
+    
+        if (this.validate(stringValue)) {
+            obj = JSON.parse(stringValue);
+            error = '';
+            value = obj.value;
+        }
+    
+        this.error = obj.error;
+        this.value = obj.value;
+    
+        return this;
+    }
 }
 
-/**
- * Create response object.
- * @param {string}  result      The result returned by CSInterface().evalScript()
- * @param {*}       _default    Default value to return if original result is empty & only if it is empty.
- * @returns {HostResponse}
- * @constructor
- */
-var Result = function(result, _default) {
-    try {
-        if (isEmpty(result)) {
-            return new HostResponse(true);
+class Result {
+    constructor(result, _default) {
+        try {
+            if (typeof result !== 'undefined') {
+                return new HostResponse(true);
+            }
+            return new HostResponse().parse(result);
         }
-        return new HostResponse().parse(result);
+        catch(e) {
+            new HostResponse(new Error(e.message));
+        }
     }
-    catch(e) {
-        new HostResponse(new Error(e.message));
+}
+
+class UserCancelledError extends Error {
+    consructor(message) {
+        this.name = 'UserCancelledError';
+        this.message = message || 'User cancelled';
+    }
+}
+
+class HostResponseError extends Error {
+    consructor(message) {
+        this.name = 'HostResponseError';
+        this.message = message || 'Host response error';
     }
 }
 
@@ -128,35 +119,31 @@ var Result = function(result, _default) {
  * @returns {function(...[*]=)}
  * @constructor
  */
-var Callback = function(callback) {
-    return function (_result) {
+class Callback {
+    constructor(callback) {
+        return function (_result) {
 
-        /*
-         * Wrap the Host.method result in a HostResponse object for a consistent interface.
-         */
-        _result = new Result(_result);
-
-        /*
-         * If there is an error, bug out.
-         */
-        if (_result.isError()) {
-            throw new Error(_result.getError());
-        }
-
-        /*
-         * Execute the original callback if it's a function.
-         */
-        if (callback instanceof Function) {
-            callback(_result);
+            /*
+             * Wrap the Host.method result in a HostResponse object for a consistent interface.
+             */
+            _result = new Result(_result);
+    
+            /*
+             * If there is an error, bug out.
+             */
+            if (_result.isError()) {
+                throw new HostResponseError(_result.getError());
+            }
+    
+            /*
+             * Execute the original callback if it's a function.
+             */
+            if (callback instanceof Function) {
+                callback(_result);
+            }
         }
     }
 }
-
-var UserCancelledError = function(message) {
-    this.name = 'UserCancelledError';
-    this.message = message || 'User cancelled';
-};
-UserCancelledError.prototype = Error.prototype;
 
 /**
  * Shortcut to create HostResponse JSON object.
@@ -179,14 +166,20 @@ function hostResponseError(message) {
     );
 }
 
-module.exports.HostResponse       = HostResponse;
-module.exports.makeHostResponse   = makeHostResponse;
-module.exports.hostResponseError  = hostResponseError;
-module.exports.Result             = Result;
-module.exports.Callback           = Callback;
-module.exports.UserCancelledError = UserCancelledError;
-module.exports.makeHostResponse   = makeHostResponse;
-module.exports.hostResponseError  = hostResponseError;
+(function(global) {
+    global.HostResponse       = HostResponse;
+    global.makeHostResponse   = makeHostResponse;
+    global.hostResponseError  = hostResponseError;
+    global.Result             = Result;
+    global.Callback           = Callback;
+    global.UserCancelledError = UserCancelledError;
+    global.makeHostResponse   = makeHostResponse;
+    global.hostResponseError  = hostResponseError;
+})(
+    typeof module !== 'undefined' && typeof module.exports !== 'undefined' 
+    ? module.exports 
+    : {}
+);
 
 (function(global) {
     global.HostResponse       = HostResponse;
