@@ -10,15 +10,16 @@
     \ \ / / _ \ '__/ __| |/ _ \| '_ \    __) |
      \ V /  __/ |  \__ \ | (_) | | | |  / __/
       \_/ \___|_|  |___/_|\___/|_| |_| |_____|
+
 */
 
 
 //////////////////////////////////////////////////////////////////////////////////
-// JSX.js © and writtent by Trevor https://creative-scripts.com/jsx-js           //
+// JSX.js © and writtent by Trevor http://creative-scripts.com/jsx-js           //
 // If you turn over is less the $50,000,000 then you don't have to pay anything //
 // License MIT, don't complain, don't sue NO MATTER WHAT                        //
 // If you turn over is more the $50,000,000 then you DO have to pay             //
-// Contact me https://creative-scripts.com/contact for pricing and licensing     //
+// Contact me http://creative-scripts.com/contact for pricing and licensing     //
 // Don't remove these commented lines                                           //
 // For simple and effective calling of jsx from the js engine                   //
 // Version 2 last modified April 18 2018                                        //
@@ -26,7 +27,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Change log:                                                                                           //
-// JSX.js V2 is now independent of NodeJS and CSInterface.js <span class="wp-font-emots-emo-happy"></span>                                         //
+// JSX.js V2 is now independent of NodeJS and CSInterface.js :-)                                         //
 // forceEval is now by default true                                                                      //
 // It wraps the scripts in a try catch and an eval providing useful error handling                       //
 // One can set in the jsx engine $.includeStack = true to return the call stack in the event of an error //
@@ -49,7 +50,7 @@
 //    or from an absolute url jsx.evalFile('C:Path/to/my/FabJsxScript.jsx'); (windows)                   //
 // 6) Parameter can be entered in the from of a parameter list which can be in any order or as an object //
 // 7) Not camelCase sensitive (very useful for the illiterate)                                           //
-// <span class="wp-font-emots-emo-sunglasses"></span> Dead easy to use BUT SPEND THE 3 TO 5 MINUTES IT SHOULD TAKE TO READ THE INSTRUCTIONS              //
+// 8) Dead easy to use BUT SPEND THE 3 TO 5 MINUTES IT SHOULD TAKE TO READ THE INSTRUCTIONS              //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* jshint undef:true, unused:true, esversion:6 */
@@ -556,9 +557,9 @@ var jsx;
      *                             [Optional DEFAULT true]
      *
      *                             If no replacements are needed then the jsx script is be executed by using the $.evalFile method
-     *                             This exposes the true value of the $.fileName property <span class="wp-font-emots-emo-sunglasses"></span>
+     *                             This exposes the true value of the $.fileName property 8-)
      *                             In such a case it's best to avoid using the $.__fileName() with no base name as it won't work
-     *                             BUT one can still use the $.__fileName('baseName') method which is more accurate than the standard $.fileName property <span class="wp-font-emots-emo-happy"></span>
+     *                             BUT one can still use the $.__fileName('baseName') method which is more accurate than the standard $.fileName property :-)
      *                             Let's say you have a Drive called "Graphics" AND YOU HAVE a root folder on your "main" drive called "Graphics"
      *                             You call a script jsx.evalFile('/Volumes/Graphics/myFabScript.jsx');
      *                             $.fileName will give you '/Graphics/myFabScript.jsx' which is wrong
@@ -593,10 +594,10 @@ var jsx;
         var arg, args, callback, fileName, fileNameScript, forceEval, forceEvalScript,
             i, jsxFolder, jsxScript, newLine, replacements, success;
 
-        success = true; // optimistic <span class="wp-font-emots-emo-happy"></span>
+        success = true; // optimistic :-)
         args = arguments;
 
-        jsxFolder = path.join(__dirname, 'jsx');
+        jsxFolder = path.join(__dirname, 'host');
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
         // $.fileName does not return it's correct path in the jsx engine for files called from the js engine   //
         // In Illustrator it returns an integer in InDesign it returns an empty string                          //
@@ -704,7 +705,7 @@ var jsx;
                     '$.evalFile(new File("' + jsxScript.replace(/\\/g, '\\\\') + '")) + "";';
                 return this.evalScript(jsxScript, callback, forceEval);
             } else {
-                throw new Error(`The file: {jsxScript} could not be found / read`);
+                throw new Error(`The file: ${jsxScript} could not be found / read`);
             }
         }
 
@@ -766,7 +767,7 @@ var jsx;
     //      replacements: {"this": foo, That: bar, and: "&&", the: foo2, other: bar2},                                               //
     //      eval: true                                                                                                               //
     // })                                                                                                                            //
-    // Enjoy <span class="wp-font-emots-emo-happy"></span>                                                                                                                     //
+    // Enjoy :-)                                                                                                                     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

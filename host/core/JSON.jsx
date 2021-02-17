@@ -1,5 +1,4 @@
-!(function(global) {
-    /**
+/**
      * Adds JSON library support for engines that do not include it natively.
      */
     "object" != typeof JSON && (JSON = {}), function () {
@@ -85,7 +84,4 @@
             })
     }();
 
-    global.JSON = JSON;
-})(this)
-
-// module.exports = JSON;
+module.exports = JSON;

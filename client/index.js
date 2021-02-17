@@ -6,7 +6,15 @@ const ReactDOM          = require('react-dom')
     , path              = require('path')
     , FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js')
     , ThemeSwitcher     = require('client/lib/ThemeSwitcher/ThemeSwitcher.js')
-    , App = require('client/components/App.js');
+    , App               = require('client/components/App.js')
+    , ContextMenuRouter = require('client/lib/ContextMenuRouter/ContextMenuRouter.js')
+    , ContextMenuJSON   = require('client/lib/ContextMenuRouter/ContextMenuExample.json')
+;
+
+const darkTheme     = require('theme/css/topcoat-desktop-dark.min.css')
+    , lightTheme    = require('theme/css/topcoat-desktop-light.min.css')
+    , styles        = require('theme/css/styles.css')
+    , fontCss       = require('theme/font/stylesheet.css')
 ;
 
 /**
@@ -31,10 +39,13 @@ window.kEXT_PATH = csInterface.getSystemPath(window.SystemPath.EXTENSION);
  * If you need to load more jsx files, you can either do it here or, better, 
  * in index.jsx (there are examples in that file already).
  */
+const script = `
+    createHostInstance()
+`
 try {
     jsx.file('host.all.jsx', (result) => {
-        console.log('[JSX] Load host/host.all.jsx')
-        csInterface.evalScript('createHostInstance()', (result) => {
+        console.log('[JSX] Load host/host.all.jsx', result)
+        csInterface.evalScript(script, (result) => {
             console.log('createHostInstance', result);
         })
     });
@@ -55,7 +66,25 @@ ThemeSwitcher();
 new FlyoutMenuImpl(true);
 
 /**
+ * Create the context menu router with a splinter table of menuId to callback.
+ */
+const contextMenuRouter = new ContextMenuRouter(
+    ContextMenuJSON, 
+    {
+        menuItem1 : () => {
+            console.log('Call context menu Item One')
+        },
+        menuItem2 : () => {
+            console.log('Call context menu Item Two')
+        },
+        menuItem3 : () => {
+            console.log('Call context menu Item Three')
+        }
+    }
+)
+
+/**
  * Render the panel HTML.
  * Add your own components in /cep-barebones/client/components/
  */
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App contextMenuRouter={contextMenuRouter}/>, document.getElementById('app'));

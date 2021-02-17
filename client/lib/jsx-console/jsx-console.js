@@ -101,9 +101,7 @@ class JsxConsole {
                                 type = Types.LOG;
                             }
             
-                            if (typeof title === 'string') {
-                                text = title;
-                            }
+                            title = '[HOST] ' + (typeof title === 'string' ? title : '');
             
                             if (typeof message === 'object') {
                                 message = stringify(message);

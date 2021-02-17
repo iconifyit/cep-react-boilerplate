@@ -1,0 +1,26 @@
+{"menu" : [
+    {
+        "id": "menuItem1",
+        "label": "Menu Item One",
+        "enabled": true,
+        "checkable": false,
+        "checked": false
+    },
+    {
+        "id": "menuItem2",
+        "label": "Menu Item Two",
+        "enabled": true,
+        "checkable": false,
+        "checked": false
+    },
+    {
+        "label": "---"
+    },
+    {
+        "id": "menuItem3",
+        "label": "Menu Item Three",
+        "enabled": true,
+        "checkable": false,
+        "checked": false
+    }
+]}
