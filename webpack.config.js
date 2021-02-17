@@ -7,7 +7,7 @@ const
 	, CopyWebpackPlugin = require('copy-webpack-plugin')
 	, { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-require('./host/core/shared.js');
+// require('./host/core/shared.js');
 
 module.exports = {
 	target: 'node',
@@ -40,8 +40,6 @@ module.exports = {
 			core              : path.resolve(__dirname, 'host/core/'),
 			client            : path.resolve(__dirname, 'client/'),
 			ThemeSwitcher     : path.resolve(__dirname, 'client/lib/ThemeSwitcher/ThemeSwitcher.js'),
-			'client-helpers'  : path.resolve(__dirname, 'client/client-helpers.js'),
-			Globals           : path.resolve(__dirname, 'client/lib/Globals.js'),
 			modules           : path.resolve(__dirname, "node_modules")
 		}
 	},

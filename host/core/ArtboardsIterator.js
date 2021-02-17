@@ -10,7 +10,7 @@
         global.ArtboardsIterator = getArtboardsIterator();
     }
     catch(ex) {
-        logger.error('[ArtboardIterator.js][ERROR][ArtboardsIterator] : ' + e.message);
+        console.error('[ArtboardIterator.js][ERROR][ArtboardsIterator] : ' + e.message);
     }
 
     /**
@@ -33,7 +33,7 @@
             ArtboardsIterator = new Iterator(artboards);
         }
         catch(e) {
-            alert("[1] " + e);
+            console.error("[1] " + e);
         }
 
         try {

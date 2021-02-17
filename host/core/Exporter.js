@@ -96,7 +96,7 @@
                     var parts   = artboard.name.split('_');
                     var theName = parts.slice(1, parts.length-1).join('-');
 
-                    logger.info('[Export Name]', theName);
+                    console.info('[Export Name]', theName);
 
                     var theFile = new File(
                         theFolder.fsName + "/" + theName + sfx + "." + theType.toLowerCase()
@@ -122,7 +122,7 @@
     }
 
     Exporter.prototype.insureFile = function(theFile) {
-        logger.info('theFile instanceof File : ' + (theFile instanceof File));
+        console.info('theFile instanceof File : ' + (theFile instanceof File));
         if (! theFile instanceof File) {
             return new File(theFile);
         }
