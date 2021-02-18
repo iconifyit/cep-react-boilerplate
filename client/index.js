@@ -1,5 +1,7 @@
 const ReactDOM          = require('react-dom')
     , React             = require('react')
+    , { Provider }      = require('react-redux')
+    , { createStore }   = require('redux')
     , {CSInterface, SystemPath, CSEvent} = require('client/lib/CSInterface/CSInterface.js')
     , csInterface       = new CSInterface()
     , fs                = require('fs')
@@ -10,6 +12,9 @@ const ReactDOM          = require('react-dom')
     , ContextMenuRouter = require('client/lib/ContextMenuRouter/ContextMenuRouter.js')
     , ContextMenuJSON   = require('client/lib/ContextMenuRouter/ContextMenuExample.json')
 ;
+
+const Counter = require('components/Counter.js');
+const store = require('client/store/store.js');
 
 const darkTheme     = require('theme/css/topcoat-desktop-dark.min.css')
     , lightTheme    = require('theme/css/topcoat-desktop-light.min.css')
@@ -87,4 +92,11 @@ const contextMenuRouter = new ContextMenuRouter(
  * Render the panel HTML.
  * Add your own components in /cep-barebones/client/components/
  */
-ReactDOM.render(<App contextMenuRouter={contextMenuRouter}/>, document.getElementById('app'));
+ReactDOM.render(
+    <Provider store={store}>
+        <App contextMenuRouter={contextMenuRouter}>
+            <Counter store={store} />
+        </App>
+    </Provider>,
+    document.getElementById('app')
+);

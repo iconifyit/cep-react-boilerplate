@@ -9,3 +9,8 @@ pre {
     font-family: source-code-pro, sans-serif;
     font-size: 12px;
 }
+
+button {
+    cursor : pointer !important;
+    padding : 10px 20px !important;
+}
