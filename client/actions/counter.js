@@ -4,5 +4,8 @@ module.exports = {
     },
     decrement : () => {
         return {type: 'DECREMENT'}
+    },
+    reset : () => {
+        return {type: 'RESET'}
     }
 }

@@ -20,6 +20,12 @@ function counterReducer(state = initialState, action) {
         })
     }
 
+    if (action.type === Actions.reset().type) {
+        return Object.assign({}, state, {
+            value: 0
+        })
+    }
+
     return state;
 }
 

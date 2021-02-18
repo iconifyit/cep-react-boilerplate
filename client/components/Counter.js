@@ -12,6 +12,7 @@ class Counter extends React.Component {
         this.incrementIfOdd = this.incrementIfOdd.bind(this);
         this.onIncrement = this.onIncrement.bind(this);
         this.onDecrement = this.onDecrement.bind(this);
+        this.onReset = this.onReset.bind(this);
         this.render = this.render.bind(this)
 
         this.store.subscribe(() => {
@@ -25,6 +26,10 @@ class Counter extends React.Component {
 
     onDecrement() {
         this.store.dispatch(Actions.decrement())
+    }
+
+    onReset() {
+        this.store.dispatch(Actions.reset())
     }
 
     incrementIfOdd() {
@@ -41,10 +46,13 @@ class Counter extends React.Component {
         return (
             <p>
                 Clicked: {this.state.value} times{' '}
-                <button className={'topcoat-button'} onClick={this.onIncrement}>+</button>{' '}
-                <button className={'topcoat-button'} onClick={this.onDecrement}>-</button>{' '}
+                <br/><br/><br/>
+                <button className={'topcoat-button'} onClick={this.onIncrement}>Increment</button>{' '}
+                <button className={'topcoat-button'} onClick={this.onDecrement}>Decrement</button>{' '}
+                <button className={'topcoat-button'} onClick={this.onReset}>Reset</button>{' '}
+                {/* <br/>
                 <button className={'topcoat-button'} onClick={this.incrementIfOdd}>Increment if odd</button>{' '}
-                <button className={'topcoat-button'} onClick={this.incrementAsync}>Increment async</button>
+                <button className={'topcoat-button'} onClick={this.incrementAsync}>Increment async</button> */}
             </p>
         )
     }

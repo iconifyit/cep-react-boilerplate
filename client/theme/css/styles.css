@@ -14,3 +14,56 @@ button {
     cursor : pointer !important;
     padding : 10px 20px !important;
 }
+
+body.theme-gray-medium button,
+body.theme-gray-medium .topcoat-button--cta,
+body.theme-gray-medium .topcoat-button--quiet,
+body.theme-gray-medium .topcoat-button--large,
+body.theme-gray-medium .topcoat-button--large--cta,
+body.theme-gray-medium .topcoat-button--large--quiet,
+body.theme-gray-medium .topcoat-icon-button,
+body.theme-gray-medium .topcoat-icon-button--large,
+body.theme-gray-medium .topcoat-icon-button--large--quiet,
+body.theme-gray-medium .topcoat-icon-button--quiet {
+    text-shadow: none !important;
+    box-shadow : none !important;
+}
+
+body.theme-gray-medium button,
+button[class^=topcoat-icon-button] {
+    position          : relative;
+    display           : inline-block;
+    -ms-flex-negative : 0;
+    flex-shrink       : 0;
+    min-height        : 21px;
+    text-decoration   : none;
+    text-align        : center;
+    border            : 1px solid transparent;
+    border-radius     : 2px !important;
+    outline           : none;
+    font-weight       : 400;
+    font-size         : 10px;
+    line-height       : 10px;
+    user-select       : none;
+
+    background-color  : #535353 !important;
+    border            : 1px solid #747474 !important;
+    color             : #fff;
+
+    box-shadow        : none !important;
+    overflow          : visible;
+    margin-right      : 4px;
+}
+
+/* .topcoat-icon-button--large,
+.topcoat-icon-button--large--quiet {
+    width          : 21px !important;
+    height         : 21px !important;
+    line-height    : 1.5rem;
+    vertical-align : top;
+} */
+
+button:hover,
+button[class^=topcoat-icon-button]:hover {
+    background-color : #5F5F5F !important;
+}
