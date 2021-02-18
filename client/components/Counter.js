@@ -8,8 +8,6 @@ class Counter extends React.Component {
         super(props);
         this.store = props.store;
         this.state = this.store.getState()
-        this.incrementAsync = this.incrementAsync.bind(this);
-        this.incrementIfOdd = this.incrementIfOdd.bind(this);
         this.onIncrement = this.onIncrement.bind(this);
         this.onDecrement = this.onDecrement.bind(this);
         this.onReset = this.onReset.bind(this);
@@ -32,16 +30,6 @@ class Counter extends React.Component {
         this.store.dispatch(Actions.reset())
     }
 
-    incrementIfOdd() {
-        if (this.store.getState().value % 2 !== 0) {
-            this.onIncrement()
-        }
-    }
-
-    incrementAsync() {
-        setTimeout(this.onIncrement, 1000)
-    }
-
     render() {
         return (
             <p>
@@ -50,18 +38,9 @@ class Counter extends React.Component {
                 <button className={'topcoat-button'} onClick={this.onIncrement}>Increment</button>{' '}
                 <button className={'topcoat-button'} onClick={this.onDecrement}>Decrement</button>{' '}
                 <button className={'topcoat-button'} onClick={this.onReset}>Reset</button>{' '}
-                {/* <br/>
-                <button className={'topcoat-button'} onClick={this.incrementIfOdd}>Increment if odd</button>{' '}
-                <button className={'topcoat-button'} onClick={this.incrementAsync}>Increment async</button> */}
             </p>
         )
     }
 }
-
-// Counter.propTypes = {
-//     value: PropTypes.number.isRequired,
-//     onIncrement: PropTypes.func.isRequired,
-//     onDecrement: PropTypes.func.isRequired
-// }
 
 module.exports = Counter
