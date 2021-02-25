@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Boomer",
+        "age": 5,
+        "breed": "Newfie-mix",
+        "skills": [
+            "crate games",
+            "recall",
+            "it's your choice",
+            "shake"
+        ]
+    },
+    {
+        "name": "Stuey",
+        "age": 8,
+        "breed": "Shepherd-mix",
+        "skills": [
+            "crate games",
+            "recall",
+            "it's your choice",
+            "shake"
+        ]
+    },
+    {
+        "name": "Jessie",
+        "age": 4,
+        "breed": "Aussie-mix",
+         "skills": [
+            "crate games",
+            "recall",
+            "it's your choice",
+            "shake"
+        ]
+    }
+]

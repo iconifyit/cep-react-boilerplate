@@ -22,7 +22,8 @@
         "host": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development --config=webpack.host.js",
         "client": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development --config=webpack.config.js",
         "dev": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode development && npm run host",
-        "build": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production && npm run host && source build.sh"
+        "build": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production && npm run host && source build.sh",
+        "server": "pouchdb-server -d ./db"
     },
     "repository": {
         "type": "git",
@@ -35,6 +36,7 @@
     },
     "homepage": "https://github.com/iconifyit/cep-barebones#readme",
     "dependencies": {
+        "@babel/polyfill": "^7.12.1",
         "@babel/runtime": "^7.11.2",
         "glob": "^7.1.6",
         "gulp-clean-css": "^4.3.0",
@@ -46,13 +48,20 @@
         "moment": "^2.29.1",
         "ncp": "^2.0.0",
         "path": "^0.12.7",
+        "pouchdb-adapter-idb": "^7.2.2",
+        "pouchdb-adapter-memory": "^7.2.2",
+        "pouchdb-server": "^4.2.0",
         "prop-types": "^15.7.2",
         "react": "^16.13.0",
         "react-dom": "^16.13.1",
         "react-redux": "^7.2.2",
+        "react-toastify": "^7.0.3",
         "redux": "^4.0.5",
         "regenerator-runtime": "^0.13.7",
+        "rxdb": "^9.14.0",
+        "rxjs": "^6.6.3",
         "sassify": "^4.0.1",
+        "serve": "^11.3.2",
         "uuid": "^8.3.0",
         "xmldom": "^0.3.0"
     },

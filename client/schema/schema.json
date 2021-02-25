@@ -1,0 +1,34 @@
+{
+    "title": "pets schema",
+    "version": 0,
+    "description": "Describe your dogs",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "primary": true
+        },
+        "breed": {
+            "type": "string"
+        },
+        "age" : {
+            "type" : "number",
+            "max" : 99,
+            "min" : 1
+        },
+        "skills": {
+            "type": "array",
+            "maxItems": 5,
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "breed"
+    ],
+    "attachments": {
+        "encrypted": false
+    }
+}

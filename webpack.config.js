@@ -78,7 +78,17 @@ module.exports = {
          }),
 		new webpack.ProvidePlugin({
 			path  : 'path',
-			fs     : 'fs'
+			fs     : 'fs',
+            ThemeSwitcher       : 'client/lib/ThemeSwitcher/ThemeSwitcher.js',
+            CSLib               : 'client/lib/CSInterface/CSInterface.js',
+            jsxConsole          : 'client/lib/jsx-console/jsx-console.js',
+            flyoutMenuImpl      : 'client/lib/FlyoutMenu/FlyoutMenuImpl.js',
+            ContextMenuRouter   : 'client/lib/ContextMenuRouter/ContextMenuRouter.js',
+            ContextMenuJSON     : 'client/lib/ContextMenuRouter/ContextMenuExample.json',
+            darkTheme           : 'client/theme/css/topcoat-desktop-dark.min.css',
+            lightTheme          : 'client/theme/css/topcoat-desktop-light.min.css',
+            styles              : 'client/theme/css/styles.css',
+            fontCss             : 'client/theme/font/stylesheet.css'
 		})
 	],
 

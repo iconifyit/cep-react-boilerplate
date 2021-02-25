@@ -16,7 +16,7 @@ function counterReducer(state = initialState, action) {
 
     if (action.type === Actions.decrement().type) {
         return Object.assign({}, state, {
-            value: state.value - 1
+            value: state.value - 1 >= 0 ? state.value - 1 : 0
         })
     }
 
