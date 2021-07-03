@@ -1,82 +1,53 @@
-const React = require('react')
-    , { ToastContainer, toast } = require('react-toastify')
+const React = require('react'),
+    { Provider } = require('react-redux'), 
+    store = require('../store/store.js')
+;
 
-require('react-toastify/dist/ReactToastify.css');
+const {
+    Switch,
+    Route,
+} = require("react-router-dom");
+const Router = require('react-router-dom').HashRouter;
+
+const NavBar = require('./NavBar');
+const Home = require('./Home');
+const Search = require('./Search');
+const About = require('./About');
+const PageNotFound = require('./PageNotFound');
+
+const Database = require('../db/Database');
 
 class App extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            items : []
-        }
-        this.createDatabase = this.createDatabase.bind(this);
-    }
-
+    
     async componentDidMount() {
-        this.db = await this.createDatabase();
-
+        this.db = await Database.get();
+        console.log('DB', this.db);
         this.db.pets.find().$.subscribe((items) => {
             if (! items) return;
-            toast('Reloading items');
             this.setState({items: items});
+            console.log('[componentDidMount][this.state]', this.state)
         });
-    }
-
-    async createDatabase() {
-        const theSchema = require('schema/schema.json');
-        const theData   = require('data/pets.json');
-        const RxDB      = require('rxdb');
-        const dbName    = 'pets';
-        const syncURL   = `http://localhost:5984/${dbName}/`;
-
-        RxDB.addRxPlugin(require('pouchdb-adapter-http'));
-        RxDB.addRxPlugin(require('pouchdb-adapter-idb'));
-
-        const db = await RxDB.createRxDatabase({
-            name: dbName,
-            adapter: 'idb'
-        });
-
-        const pets = await db.addCollections({
-            pets: {
-                schema: theSchema
-            }
-        });
-
-        db.pets.sync({ remote: syncURL });
-
-        theData.forEach((item) => {
-            db.pets.upsert(item);
-        })
-
-        db.pets.dump()
-            .then(json => console.dir(json));
-        
-        return db;
     }
 
     render() {
         return (
-            <div>
-                <div className="App-header">
-                    <h2>Welcome to React</h2>
-                </div>
-                <p className="App-intro">To get started, edit <code>src/App.js</code> and save to reload.</p>
-                {this.props.children}
-                <div>
-                    <ul>
-                        {this.state.items.map((item) => {
-                            return (
-                                <li key={item.name}>
-                                    {item.name}<br/>
-                                    {item.breed}<br/>
-                                    {item.skills.join(', ')}
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div>
+            <Provider store={store}>
+                <React.Fragment>
+                    <Router location={'/'} context={{}}>
+                        <NavBar />
+                        <Switch>
+                            <Route exact path={'/'}>
+                                <Home db={this.db} />
+                            </Route>
+                            <Route exact path={'/about'} component={About}/>
+                            <Route exact path={'/search'}>
+                                <Search db={this.db} />
+                            </Route>
+                            <Route exact component={PageNotFound}/>
+                        </Switch>
+                    </Router>
+                </React.Fragment>
+            </Provider>
         );
     }
 }
