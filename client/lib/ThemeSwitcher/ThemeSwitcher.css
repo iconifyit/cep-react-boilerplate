@@ -5,6 +5,19 @@
  *  theme-white         : #f0f0f0
  */
 
+/*
+require('../../theme/css/topcoat-desktop-dark.min.css');
+require('../../theme/css/topcoat-desktop-light.min.css')
+const css = require('../../theme/css/styles.css').toString();
+console.log('CSS', css);
+require('../../theme/font/stylesheet.css');
+*/
+
+@import url("../../theme/css/topcoat-desktop-dark.min.css");
+@import url("../../theme/css/topcoat-desktop-light.min.css");
+@import url("../../theme/css/styles.css");
+@import url("../../theme/css/styles.css");
+
 :root
 {
     --theme-white-bg-color              : #f0f0f0;

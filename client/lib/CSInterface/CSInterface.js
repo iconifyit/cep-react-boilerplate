@@ -1200,10 +1200,11 @@ window.CSXSWindowType = CSXSWindowType;
 
 if (typeof module != 'undefined') {
     module.exports = {
-        CSInterface,
-        SystemPath,
-        CSEvent,
-        CSXSWindowType
+        CSInterface : CSInterface,
+        csInterface : new CSInterface(),
+        SystemPath : SystemPath,
+        CSEvent : CSEvent,
+        CSXSWindowType : CSXSWindowType
     };
 }
 

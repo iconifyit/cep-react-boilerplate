@@ -135,4 +135,4 @@ class FlyoutMenuImpl extends Observable {
     }
 }
 
-module.exports = FlyoutMenuImpl;
+module.exports = new FlyoutMenuImpl(true);

@@ -1,102 +1,47 @@
-const ReactDOM          = require('react-dom')
-    , React             = require('react')
-    , { Provider }      = require('react-redux')
-    , { createStore }   = require('redux')
-    , {CSInterface, SystemPath, CSEvent} = require('client/lib/CSInterface/CSInterface.js')
-    , csInterface       = new CSInterface()
-    , fs                = require('fs')
-    , path              = require('path')
-    , FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js')
-    , ThemeSwitcher     = require('client/lib/ThemeSwitcher/ThemeSwitcher.js')
-    , App               = require('client/components/App.js')
-    , ContextMenuRouter = require('client/lib/ContextMenuRouter/ContextMenuRouter.js')
-    , ContextMenuJSON   = require('client/lib/ContextMenuRouter/ContextMenuExample.json')
+const ReactDOM            = require('react-dom')
+    , React               = require('react')
+    , App                 = require('client/components/App.js')
+    , {contextMenuRouter} = require('./cs-internals.js')
 ;
 
-const Counter = require('components/Counter.js');
-const store = require('client/store/store.js');
+const jsxConsole        = require('client/lib/jsx-console/jsx-console.js');
+const FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js');
 
-const darkTheme     = require('theme/css/topcoat-desktop-dark.min.css')
-    , lightTheme    = require('theme/css/topcoat-desktop-light.min.css')
-    , styles        = require('theme/css/styles.css')
-    , fontCss       = require('theme/font/stylesheet.css')
-;
+// ThemeSwitcher       : 'client/lib/ThemeSwitcher/ThemeSwitcher.js',
+// CSLib               : 'client/lib/CSInterface/CSInterface.js',
+// jsxConsole          : 'client/lib/jsx-console/jsx-console.js',
+// flyoutMenuImpl      : 'client/lib/FlyoutMenu/FlyoutMenuImpl.js',
+// ContextMenuRouter   : 'client/lib/ContextMenuRouter/ContextMenuRouter.js',
+// ContextMenuJSON     : 'client/lib/ContextMenuRouter/ContextMenuExample.json',
+// darkTheme           : 'client/theme/css/topcoat-desktop-dark.min.css',
+// lightTheme          : 'client/theme/css/topcoat-desktop-light.min.css',
+// styles              : 'client/theme/css/styles.css',
+// fontCss             : 'client/theme/font/stylesheet.css'
 
-/**
- * This library allows you to write to the CEF/brower console from the JSX context. 
- * All of your logging in a single place.
- */
-require('client/lib/jsx-console/jsx-console.js')
+console.log('jsxConsole', jsxConsole);
 
-/**
- * Attach csInterface to the global window object.
- */
-window.csInterface = csInterface
+const macaddress = require('macaddress');
 
-/**
- * Global shortcut to the Extension Path.
- */
-window.kEXT_PATH = csInterface.getSystemPath(window.SystemPath.EXTENSION);
+macaddress.all().then(addresses => console.log('MAC', addresses));
 
-/**
- * JSX.js makes life a lot easier. You do not need to restart your CC app to enable 
- * changes to the JSX context. You also DO NOT load the jsx code via the manifest.xml. 
- * If you need to load more jsx files, you can either do it here or, better, 
- * in index.jsx (there are examples in that file already).
- */
-const script = `
-    createHostInstance()
-`
-try {
-    jsx.file('host.all.jsx', (result) => {
-        console.log('[JSX] Load host/host.all.jsx', result)
-        csInterface.evalScript(script, (result) => {
-            console.log('createHostInstance', result);
-        })
-    });
-}
-catch(e) {
-    console.error('[JSX]', e)
-}
-
-/**
- * Load the ThemeSwitcher.
- */
-ThemeSwitcher();
-
-/**
- * Create the Flyout menu.
- * Update the menu in /cep-barebones/client/lib/FlyoutMenu/FlyoutMenuImpl.js
- */
-new FlyoutMenuImpl(true);
-
-/**
- * Create the context menu router with a splinter table of menuId to callback.
- */
-const contextMenuRouter = new ContextMenuRouter(
-    ContextMenuJSON, 
-    {
-        menuItem1 : () => {
-            console.log('Call context menu Item One')
-        },
-        menuItem2 : () => {
-            console.log('Call context menu Item Two')
-        },
-        menuItem3 : () => {
-            console.log('Call context menu Item Three')
-        }
+const addContextMenu = () => {
+    if (csInterface) {
+        csInterface.setContextMenuByJSON(
+            JSON.stringify(contextMenuRouter.menuItems), 
+            (menuId) => {
+                contextMenuRouter.call(menuId);
+                csInterface.setContextMenu('');
+            }
+        )
     }
-)
+};
 
 /**
  * Render the panel HTML.
  * Add your own components in /cep-barebones/client/components/
  */
 ReactDOM.render(
-    <Provider store={store}>
-        <App contextMenuRouter={contextMenuRouter}>
-            <Counter store={store} />
-        </App>
-    </Provider>,
-    document.getElementById('app')
+    <App />,
+    document.getElementById('root'), 
+    addContextMenu
 );
