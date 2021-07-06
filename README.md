@@ -57,20 +57,46 @@ npm run build
 ```
 
 ## Technologies Used
-- React for the UI
+- React/Redux for the front-end architecture
+- Ant Design for the UI
 - Babel to transpile from ES6 to ES5
 - Webpack for builds
 - NodeJS
 - require
 
 ## What You Should Know
-First, I have used this boilerplate to create a handful of commercial, production extensions and have refined it over numerous personal and professional projects. I have tried to make this code as unopinionated as possible but have included a few techniques that I think make the CEP dev process a lot easier or to handle very common use cases (such as custom FlyoutMenu  and ContextMenuRouter classes). I have also included some personal classes for Illustrator that I have used over-and-over (for instance, ArtboardIterator).
+First, I have used this boilerplate to create a handful of commercial, production extensions and have refined it over numerous personal and professional projects. I have tried to make this code as un-opinionated as possible but have included a few techniques that I think make the CEP dev process a lot easier or to handle very common use cases (such as custom FlyoutMenu  and ContextMenuRouter classes). I have also included some personal classes for Illustrator that I have used over-and-over (for instance, ArtboardIterator).
 
 Next, you can write your JSX (ExtendScript) context code in ES6. When you run `npm run dev` babel will transpile the code to regular old JavaScript. That said, you should avoid using any of the really non-standard conventions that are included in JSX such as the `#include` directive.
 
+Also, you will notice that the code uses `require` instead of `import`. I have found that using `import` in CEP is a lot more  error-prone. I think maybe it is due to the mixed-context nature of CEP but I have not verified that hypothesis. If you need to convert an `import` statement to `require` you can do so by changing the code like so:
+```js
+import React from 'react';
+// Becomes
+const React = require('react');
+```
+
+If you are importing specific classes or properties from a module, you can do this:
+
+```js
+import {Button} from 'react-bootstrap';
+// Becomes
+const Button = require('react-bootstrap').Button;
+// Or
+const {Button} = require('react-bootstrap');
+```
+
+To make life easier, I used some simple Regex to replace `import` statements with `require` statements. 
+
+```grep
+Search : import \{([a-zA-Z]+)\} from '([a-zA-Z-0-9]+)';
+Replace : const {$1} = require('$2');
+```
+
+
 Use caution with trying to modify webpack.host.js. The config is pretty simple but it was necessary to add quite a few polyfills to allow the use of ES6. Babel does a pretty good job transpiling the code but there were some issues due to the fact that CEP uses an older version of JS. Things like Object.keys, Object.defineProperty, Function.call, Function.bind did not exist. I have not tested the JSX context implementation as thoroughly as you would want for a production build so be sure to test your code very well (and create a [Pull Request](https://github.com/iconifyit/cep-barebones/pulls) or submit an [issue](https://github.com/iconifyit/cep-barebones/issues) if you'd like to help improve CEP-barebones).
 
-The front end code is as close to pure React as possible. You can build out the front end React app pretty much the way you normally would provided that you don't change anything above the last line of the `client/index.js` file. Feel free to modify the last line, which is a `ReactDOM.render()` call the same as any other React app. One thing I would like to do is add Redux to manage state and implement a Router class.
+The front end code is as close to pure React/Redux as possible. You can build out the front end React/Redux app pretty much the way you normally would provided that you don't change anything above the last line of the `client/index.js` file. Feel free to modify the last line, which is a `ReactDOM.render()` call the same as any other React app. One thing I would like to do is add Redux to manage state and implement a Router class.
 
 ## Support
 If you use this code for a commercial product, I'd love to hear about it and list them on this page. There is no need to attribute me but it would be a nice gesture. If you make money from the code, I'd love it if you make a nominal donation to any of the following: 

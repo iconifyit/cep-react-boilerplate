@@ -1,7 +1,6 @@
 const React = require('react'),
     { Provider } = require('react-redux'), 
-    store = require('../store/illustrator.js'),
-    ReactDOM = require('react-dom')
+    store = require('../store/illustrator.js')
 ;
 
 const {
