@@ -88,9 +88,14 @@ const {Button} = require('react-bootstrap');
 
 To make life easier, I used some simple Regex to replace `import` statements with `require` statements. 
 
-```grep
-Search : import \{([a-zA-Z]+)\} from '([a-zA-Z-0-9]+)';
-Replace : const {$1} = require('$2');
+__Search__
+```regex
+import \{([a-zA-Z]+)\} from '([a-zA-Z-0-9]+)';
+```
+
+__Replace__
+```regex
+const {$1} = require('$2');
 ```
 
 
