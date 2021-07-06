@@ -80,9 +80,13 @@ If you are importing specific classes or properties from a module, you can do th
 
 ```js
 import {Button} from 'react-bootstrap';
+
 // Becomes
+
 const Button = require('react-bootstrap').Button;
+
 // Or
+
 const {Button} = require('react-bootstrap');
 ```
 
