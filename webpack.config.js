@@ -75,7 +75,7 @@ module.exports = {
 		}),
 		new MiniCssExtractPlugin({ 
             filename: 'client/theme/css/client.all.css'
-         }),
+        }),
 		new webpack.ProvidePlugin({
 			path  : 'path',
 			fs     : 'fs',
@@ -85,10 +85,10 @@ module.exports = {
             flyoutMenuImpl      : 'client/lib/FlyoutMenu/FlyoutMenuImpl.js',
             ContextMenuRouter   : 'client/lib/ContextMenuRouter/ContextMenuRouter.js',
             ContextMenuJSON     : 'client/lib/ContextMenuRouter/ContextMenuExample.json',
-            darkTheme           : 'client/theme/css/topcoat-desktop-dark.min.css',
-            lightTheme          : 'client/theme/css/topcoat-desktop-light.min.css',
-            styles              : 'client/theme/css/styles.css',
-            fontCss             : 'client/theme/font/stylesheet.css'
+            // darkTheme           : 'client/theme/css/topcoat-desktop-dark.min.css',
+            // lightTheme          : 'client/theme/css/topcoat-desktop-light.min.css',
+            // styles              : 'client/theme/css/styles.css',
+            // fontCss             : 'client/theme/font/stylesheet.css'
 		})
 	],
 

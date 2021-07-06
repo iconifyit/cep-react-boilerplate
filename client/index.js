@@ -4,10 +4,7 @@ const ReactDOM            = require('react-dom')
     , {contextMenuRouter} = require('./cs-internals.js')
 ;
 
-// const Counter           = require('components/Counter.js');
-// const store             = require('client/store/store.js');
 const jsxConsole        = require('client/lib/jsx-console/jsx-console.js');
-const ThemeSwitcher     = require('client/lib/ThemeSwitcher/ThemeSwitcher.js');
 const FlyoutMenuImpl    = require('client/lib/FlyoutMenu/FlyoutMenuImpl.js');
 
 // ThemeSwitcher       : 'client/lib/ThemeSwitcher/ThemeSwitcher.js',
@@ -44,7 +41,7 @@ const addContextMenu = () => {
  * Add your own components in /cep-barebones/client/components/
  */
 ReactDOM.render(
-    <App/>,
-    document.getElementById('app'), 
+    <App />,
+    document.getElementById('root'), 
     addContextMenu
 );

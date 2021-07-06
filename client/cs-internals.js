@@ -6,11 +6,11 @@ const {
     CSXSWindowType
 } = CSLib;
 
-const darkTheme  = require('theme/css/topcoat-desktop-dark.min.css')
-    , lightTheme = require('theme/css/topcoat-desktop-light.min.css')
-    , styles     = require('theme/css/styles.css')
-    , fontCss    = require('theme/font/stylesheet.css')
-;
+// const darkTheme  = require('theme/css/topcoat-desktop-dark.min.css')
+//     , lightTheme = require('theme/css/topcoat-desktop-light.min.css')
+//     , styles     = require('theme/css/styles.css')
+//     , fontCss    = require('theme/font/stylesheet.css')
+// ;
 
 /**
  * JSX.js makes life a lot easier. You do not need to restart your CC app to enable 
@@ -33,7 +33,7 @@ catch(e) {
 /**
  * Load the ThemeSwitcher.
  */
-ThemeSwitcher();
+// ThemeSwitcher();
 
 /**
  * Create the context menu router with a splinter table of menuId to callback.
@@ -54,10 +54,11 @@ const contextMenuRouter = new ContextMenuRouter(
 )
 
 module.exports = {
-    darkTheme,
-    lightTheme,
-    styles,
-    fontCss,
-    ThemeSwitcher,
+    // darkTheme,
+    // lightTheme,
+    // styles,
+    // fontCss,
+    // ThemeSwitcher,
+    
     contextMenuRouter,
 }
