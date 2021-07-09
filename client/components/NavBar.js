@@ -1,5 +1,6 @@
 const React = require('react');
-const ReactDOM = require("react-dom");
+const {connect} = require('react-redux');
+const Illustrator = require('../actions/illustrator.js')
 const {
   Link
 } = require("react-router-dom");
@@ -16,12 +17,18 @@ const {
     Space,
     Dropdown,
     Menu,
+    Button,
 } = require('antd');
 require('antd/dist/antd.css');
 
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            open: false,
+        }
+
         this.Menu = this.Menu.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
@@ -52,6 +59,13 @@ class NavBar extends React.Component {
         console.log('click', e);
     }
 
+    toggleState(e, state) {
+        try { e.preventDefault() } catch (e) {}
+        this.setState({
+            [state]: ! this.state[state]
+        });
+    }
+
     Menu(props) {
         return (
             <Menu onClick={this.handleMenuClick}>
@@ -66,13 +80,6 @@ class NavBar extends React.Component {
                 </Menu.Item>
             </Menu>
         );
-        // return (
-        //     <ul>
-        //         <li><Link to="/" onClick={this.handleClick} replace>Home</Link></li>
-        //         <li><Link to="/about" onClick={this.handleClick} replace>About</Link></li>
-        //         <li><Link to="/search" onClick={this.handleClick} replace>Search</Link></li>
-        //     </ul>
-        // )
     };
 
     render() {
@@ -82,10 +89,49 @@ class NavBar extends React.Component {
                     <Dropdown.Button onClick={this.handleButtonClick} overlay={this.Menu}>
                         Menu
                     </Dropdown.Button>
+
+                    <span style={{marginRight: '10px', display: 'inline-block'}}></span>
+
+                    <Button 
+                        type={'primary'} 
+                        onClick={() => this.setState({open: true})}
+                    >
+                        Show Modal
+                    </Button>
+                    <Modal
+                        title="Dad Joke"
+                        centered
+                        visible={this.state.open}
+                        onOk={(e) => this.toggleState(e, 'open')}
+                        onCancel={(e) => this.toggleState(e, 'open')}
+                    >
+                        <p>How much space do you need to grow fungi? (A) As mushroom as it takes.</p>
+                    </Modal>
+
+                    <span style={{marginRight: '10px', display: 'inline-block'}}></span>
+
+                    <Button type={'primary'} onClick={this.props.alert}>
+                        Hi
+                    </Button>
                 </div>
             </Space>
         )
     }
 }
 
-module.exports  = NavBar;
+// module.exports  = NavBar;
+
+const mapStateToProps = (state) => {
+    console.log('[NavBar][mapStateToProps]', state);
+    return {
+        open : state.open,
+    };
+}
+  
+const mapDispatchToProps = (dispatch) => {
+    return {
+        alert : () => { return dispatch( Illustrator.alert() ) }
+    };
+};
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(NavBar)

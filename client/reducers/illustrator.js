@@ -11,7 +11,7 @@ const Host = require('../lib/HostInterface.js');
 
 
 module.exports = (state = {value: ''}, action) => {
-    console.log('[illustrator reducer][action]', action.type)
+    // console.log('[illustrator reducer][action]', action.type)
 
     if (action.type === Actions.alert().type) {
 
