@@ -32,24 +32,15 @@ const ListItem = ({item, remove}) => {
         <a href="#" 
             key={item.name}
             className="list-group-item" 
-            onClick={ () => { remove(item.name) } }
+            onClick={(e) => { 
+                e.preventDefault();
+                remove(e.currentTarget.text);
+            }}
         >{item.name}</a>
     );
 }
   
 const ItemsList = ({items, remove}) => {
-    let listItems = [];
-    if (items.length) {
-        items.map((item) => {
-            return (
-                <ListItem 
-                    item={item} 
-                    key={item.name} 
-                    remove={remove}
-                />
-            )
-        });
-    }
     return (
         <div 
             key={'list-group-' + Math.random()}
@@ -102,30 +93,33 @@ class Pets extends React.Component {
         console.log('[Pets] componentDidUpdate', prevProps, prevState);
     }
 
-    async addListItem(val) {
-        this.model.create({
-            "name": val,
+    async addListItem(name) {
+        const item = await this.model.create({
+            "name": name,
             "age": 2,
             "breed": "Unknown",
             "skills": []
         })
-        .then((item) => {
-            console.log('[Pets.addListItem] item', item);
-            this.state.items.push(item)
-        })
-        .catch(err => console.error('Error:', err));
+
+        const items = this.state.items;
+        items.push(item);
+        this.setState({
+            items: items
+        });
     }
 
-    handleRemove(name) {
+    async handleRemove(name) {
+        console.log('[handleRemove][name]', name);
         const remainder = this.state.items.filter((item) => {
             if (item.name !== name) return item;
         });
 
+        console.log('[handleRemove][remainder]', remainder);
         this.setState({
             items : remainder
         })
 
-        this.props.db.pets.find().where('name').eq(name).remove();
+        await this.model.delete(name);
     }
     
     render() {

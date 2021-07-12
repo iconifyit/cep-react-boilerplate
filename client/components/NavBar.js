@@ -1,6 +1,8 @@
 const React = require('react');
 const {connect} = require('react-redux');
-const Illustrator = require('../actions/illustrator.js')
+// const Illustrator = require('../actions/illustrator.js')
+const Host = require('../lib/HostInterface.js');
+
 const {
   Link
 } = require("react-router-dom");
@@ -110,7 +112,12 @@ class NavBar extends React.Component {
 
                     <span style={{marginRight: '10px', display: 'inline-block'}}></span>
 
-                    <Button type={'primary'} onClick={this.props.alert}>
+                    <Button type={'primary'} onClick={(e) => {
+                        e.preventDefault();
+                        Host.exec('alert', 'Hi!', (result) => {
+                            console.log('[NavBar][Hi Button][result]', result)
+                        });
+                    }}>
                         Hi
                     </Button>
                 </div>
@@ -119,19 +126,19 @@ class NavBar extends React.Component {
     }
 }
 
-// module.exports  = NavBar;
+module.exports  = NavBar;
 
-const mapStateToProps = (state) => {
-    console.log('[NavBar][mapStateToProps]', state);
-    return {
-        open : state.open,
-    };
-}
+// const mapStateToProps = (state) => {
+//     console.log('[NavBar][mapStateToProps]', state);
+//     return {
+//         open : state.open,
+//     };
+// }
   
-const mapDispatchToProps = (dispatch) => {
-    return {
-        alert : () => { return dispatch( Illustrator.alert() ) }
-    };
-};
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         alert : () => { return dispatch( Illustrator.alert() ) }
+//     };
+// };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(NavBar)
+// module.exports = connect(mapStateToProps, mapDispatchToProps)(NavBar)

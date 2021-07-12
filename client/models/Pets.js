@@ -12,13 +12,8 @@ class Pets {
             this.create = this.create.bind(this);
             this.update = this.update.bind(this);
             this.delete = this.delete.bind(this);
-            this.getByName = this.getByName.bind(this);
             return this;
         })();
-    }
-
-    get collection() {
-        return this.db.pets;
     }
 
     async getAll() {    
@@ -31,18 +26,18 @@ class Pets {
     }
 
     async getOne(name) {
-        return await this.collection
-            .findOne({
-                selector: { name }
-            })
-            .exec()
+        const db = await Database.get()  
+        return await db.pets.findOne({
+                selector: { name : name }
+            }).exec()
     }
 
     async create(pet) {
         // hooks
-        this.collection.preInsert(pet => {
+        const db = await Database.get();
+        db.pets.preInsert(pet => {
             const { name } = pet;
-            return this.collection
+            return db.pets
                 .findOne({
                     selector: { name }
                 }).exec()
@@ -57,23 +52,19 @@ class Pets {
                     console.error(err);
                 });
         });
-        return await this.collection.upsert(pet);
+        return await db.pets.upsert(pet);
     }
 
-    async update(id, pet) {
-        return await this.collection.upsert(pet);
+    async update(pet) {
+        const db = await Database.get();
+        return await db.pets.atomicUpdate(pet);
     }
 
-    async delete(id) {
-        return await this.collection.remove(pet);
-    }
-
-    async getByName(name) {
-        return await this.collection
-            .findOne({
-                selector: { name }
-            })
-            .exec()
+    async delete(name) {
+        console.log('[PetsModel][name]', name);
+        const doc = await this.getOne(name);
+        console.log('[PetsModel][doc]', doc);
+        return await doc.remove();
     }
 }
 
