@@ -1,4 +1,4 @@
-# CEP Barebones
+# CEP React Boilerplate
 
 *NB: My apologies in advance for the Mac OS & Linux-centric nature of the documentation and code as well as the Adobe Illustrator focus of the panel. This codebase was created for my own needs first before I decided to share the code based on conversations with other developers who were struggling with implementing React & Webpack with CEP panels. I promise I will eventually update the code to be more OS-agnostic. Feel free to create a PR to submit improvements.*
 
