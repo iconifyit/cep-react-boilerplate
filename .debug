@@ -1,7 +1,20 @@
 <ExtensionList>
-    <Extension Id="com.atomic.cep-barebones.panel">
+    <Extension Id="com.atomic.cep-barebones">
         <HostList>
-            <Host Name="ILST" Port="8090"/>
+            <Host Name="ILST" Port="9001"/>
+            <Host Name="DRWV" Port="9002"/>
+            <Host Name="FLPR" Port="9003"/>
+            <Host Name="IDSN" Port="9004"/>
+            <Host Name="AICY" Port="9005"/>
+            <Host Name="PHSP" Port="9006"/>
+            <Host Name="PHXS" Port="9007"/>
+            <Host Name="PPRO" Port="9008"/>
+            <Host Name="PRLD" Port="9009"/>
+            <Host Name="AEFT" Port="9010"/>
+            <Host Name="DEMO" Port="9011"/>
+            <Host Name="AUDT" Port="9012"/>
+            <Host Name="LTRM" Port="9013"/>
+            <Host Name="MUSE" Port="9014"/>
         </HostList>
     </Extension>
 </ExtensionList>

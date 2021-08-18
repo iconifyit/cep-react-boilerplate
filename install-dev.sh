@@ -9,7 +9,7 @@ function mydirname {
 }
 
 HERE=`pwd`
-NAME=`mydirname`
+NAME=${PWD##*/}
 
 sudo ln -s "$HERE/dist" "/Library/Application Support/Adobe/CEP/extensions/$NAME.dev"
 # echo "Faking install extension"
