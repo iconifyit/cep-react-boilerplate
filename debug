@@ -1,5 +1,5 @@
 <ExtensionList>
-    <Extension Id="com.atomic.icon-mason.panel">
+    <Extension Id="com.atomic.cep-barebones">
         <HostList>
             <Host Name="ILST" Port="9001"/>
             <Host Name="DRWV" Port="9002"/>
