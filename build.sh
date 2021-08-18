@@ -7,15 +7,13 @@ set -o pipefail
 # ============================================================
 
 HERE=`pwd`
-NAME='icon-mason'
-
-echo $HERE
+NAME=${PWD##*/}
 
 echo "[Build] - Building ${NAME} ..."
 
 DATE=`date +%s`
 CERT='selfDB.p12'
-KEY='Alias2Mocha7'
+KEY='ke8qaJ?U?8P8EREw9eBe'
 ORG="Atomic Lotus, LLC"
 COUNTRY="US"
 CITY="Richmond"
@@ -26,19 +24,19 @@ BUNDLE_ID="$NAME"
 # Commit code to git repo
 # ============================================================
 
-echo "[Build] - Run git add"
+## You an enable this code to auto-commit and push the repo.
 
-git add *
+# echo "[Build] - Run git add"
 
-echo "[Build] - Run git commit"
+# git add *
 
-git commit -m "[Build] - Commit before building packages"
+# echo "[Build] - Run git commit"
 
-echo "[Build] - Run git push"
+# git commit -m "[Build] - Commit before building packages"
 
-git push
+# echo "[Build] - Run git push"
 
-#/usr/local/bin/node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production
+# git push
 
 # ============================================================
 # Execute Gulp build to concat assets.
@@ -96,6 +94,7 @@ fi
 echo "[Build] - create build folder"
 
 mkdir -p build
+mkdir -p build/icons
 
 # ============================================================
 # Copy source code to build directory.
@@ -104,10 +103,7 @@ mkdir -p build
 echo "[Build] - copy source code"
 
 cp -R dist/* build/
-
-if [ -f mason-icon.png ]; then
-  cp mason-icon.png build/
-fi
+cp -R src/icons/* build/icons/
 
 # ============================================================
 # Build and sign the extension.
