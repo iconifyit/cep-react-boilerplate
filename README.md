@@ -1,4 +1,4 @@
-# CEP Barebones
+# CEP React Boilerplate
 
 *NB: My apologies in advance for the Mac OS & Linux-centric nature of the documentation and code as well as the Adobe Illustrator focus of the panel. This codebase was created for my own needs first before I decided to share the code based on conversations with other developers who were struggling with implementing React & Webpack with CEP panels. I promise I will eventually update the code to be more OS-agnostic. Feel free to create a PR to submit improvements.*
 
@@ -57,9 +57,9 @@ npm run build
 ```
 
 ## Technologies Used
-- React/Redux for the front-end architecture
 - Ant Design for the UI
 - Babel to transpile from ES6 to ES5
+- React for the UI
 - Webpack for builds
 - NodeJS
 - require
@@ -108,7 +108,30 @@ Use caution with trying to modify webpack.host.js. The config is pretty simple b
 The front end code is as close to pure React/Redux as possible. You can build out the front end React/Redux app pretty much the way you normally would provided that you don't change anything above the last line of the `client/index.js` file. Feel free to modify the last line, which is a `ReactDOM.render()` call the same as any other React app. One thing I would like to do is add Redux to manage state and implement a Router class.
 
 ## Support
-If you use this code for a commercial product, I'd love to hear about it and list them on this page. There is no need to attribute me but it would be a nice gesture. If you make money from the code, I'd love it if you make a nominal donation to any of the following: 
-- Any animal welfare or rescue organization
-- Access to clean water
-- Education for at-risk youth
+I have more than I could ever want or need, but if you _do_ make money from this code, please consider paying it forward and making a donation to support the important work of the organizations below. These are all causes I'm very passionate about.
+
+### Anti-racism
+- https://www.villageofwisdom.org
+
+### LGBTQ+
+- https://truecolorsunited.org
+- https://www.thetrevorproject.org
+
+### Great Apes
+- https://www.theorangutanproject.org
+- https://www.liberiachimpanzeerescue.org
+- https://gorillafund.org
+- https://www.bonobos.org
+
+### Dog Rescue
+- http://www.ral.org
+- https://www.internationalanimalrescue.org
+
+### Access to Clean Water
+- https://water.org
+- https://charitywater.org
+
+### Education Opportunities
+- https://www.unicef.org/education/girls-education
+- https://malala.org
+- https://malala.org/girls-education
