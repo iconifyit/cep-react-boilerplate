@@ -1,0 +1,11 @@
+[x] Add iconset.io import support
+[x] Add iconset.io export support
+[x] Add copy SVG to clipboard
+[x] Add "favorites" feature
+[ ] Add SVG-to-JSX support
+[ ] Add iconfont generator
+[ ] Add SVG-to-JSON support
+[ ] Add color extraction
+[ ] Add AWS S3 support
+[ ] Add CacheService from icon search extension
+[ ] Add contact sheet feature
