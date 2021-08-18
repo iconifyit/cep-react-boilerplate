@@ -7,7 +7,6 @@ const
 	, CopyWebpackPlugin = require('copy-webpack-plugin')
 	, { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-
 module.exports = {
 	target: 'node',
 	mode  : 'development',
@@ -75,11 +74,19 @@ module.exports = {
 		}),
 		new MiniCssExtractPlugin({ 
             filename: 'client/theme/css/client.all.css'
-         }),
+        }),
 		new webpack.ProvidePlugin({
-			path  : 'path',
-			fs     : 'fs'
-		})
+            path  : 'path',
+            fs     : 'fs',
+            ThemeSwitcher       : 'client/lib/ThemeSwitcher/ThemeSwitcher.js',
+            CSLib               : 'client/lib/CSInterface/CSInterface.js',
+            jsxConsole          : 'client/lib/jsx-console/jsx-console.js',
+            flyoutMenuImpl      : 'client/lib/FlyoutMenu/FlyoutMenuImpl.js',
+            ContextMenuRouter   : 'client/lib/ContextMenuRouter/ContextMenuRouter.js',
+            ContextMenuJSON     : 'client/lib/ContextMenuRouter/ContextMenuExample.json',
+            MacAddress          : 'macaddress',
+            Helpers             : 'client/lib/Helpers.js',
+        })
 	],
 
 	module : {

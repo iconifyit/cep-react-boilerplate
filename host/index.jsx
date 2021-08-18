@@ -39,9 +39,7 @@ function createHostInstance() {
     var HostController = $.global.HostController;
     var makeHostResponse = $.global.makeHostResponse;
     var hostResponseError = $.global.hostResponseError;
-    try {
-        console.log('Testing writing to the console from JSX');
-    } catch(e){}
+    try { console.log('Testing writing to the console from JSX') } catch(e){}
     try {
         Host = new HostController({extensionPath : extensionPath}, null);
         $.global.Host = Host;
@@ -50,6 +48,12 @@ function createHostInstance() {
             var response = makeHostResponse('Host instance was created');
             console.log('[typeof app]', typeof app)
             console.log('[typeof app.activeDocument]', typeof app.activeDocument)
+
+            Host.fn('alert', function(message) {
+                alert(message);
+                return makeHostResponse('Host alert : ' + message);
+            });
+
             return JSON.stringify(response);
         }
     }

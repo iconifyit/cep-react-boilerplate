@@ -7,8 +7,7 @@ const ThemeSwitcher = () => {
     }
 
     const changeThemeColor = () => {
-        var csInterface = new CSInterface(),
-            hostEnv     = csInterface.getHostEnvironment(),
+        var hostEnv     = csInterface.getHostEnvironment(),
             UIColorObj  = hostEnv.appSkinInfo.appBarBackgroundColor,
             red         = Math.round(UIColorObj.color.red),
             green       = Math.round(UIColorObj.color.green),

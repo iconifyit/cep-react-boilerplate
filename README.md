@@ -57,14 +57,15 @@ npm run build
 ```
 
 ## Technologies Used
+- Ant Design for the UI
+- Babel to transpile from ES6 to ES5
 - React for the UI
--- Babel to transpile from ES6 to ES5
 - Webpack for builds
 - NodeJS
 - require
 
 ## What You Should Know
-First, I have used this boilerplate to create a handful of commercial, production extensions and have refined it over numerous personal and professional projects. I have tried to make this code as unopinionated as possible but have included a few techniques that I think make the CEP dev process a lot easier or to handle very common use cases (such as custom FlyoutMenu  and ContextMenuRouter classes). I have also included some personal classes for Illustrator that I have used over-and-over (for instance, ArtboardIterator).
+First, I have used this boilerplate to create a handful of commercial, production extensions and have refined it over numerous personal and professional projects. I have tried to make this code as un-opinionated as possible but have included a few techniques that I think make the CEP dev process a lot easier or to handle very common use cases (such as custom FlyoutMenu  and ContextMenuRouter classes). I have also included some personal classes for Illustrator that I have used over-and-over (for instance, ArtboardIterator).
 
 Next, you can write your JSX (ExtendScript) context code in ES6. When you run `npm run dev` babel will transpile the code to regular old JavaScript. That said, you should avoid using any of the really non-standard conventions that are included in JSX such as the `#include` directive.
 
