@@ -6,7 +6,7 @@ const initialState = {
 }
 
 function counterReducer(state = initialState, action) {
-    console.log('counterReducer action', action.type)
+    // console.log('counterReducer action', action.type)
 
     if (action.type === Actions.increment().type) {
         return Object.assign({}, state, {

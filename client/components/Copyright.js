@@ -25,7 +25,7 @@ class Copyright extends React.Component {
                     onClick={(e) => {e.preventDefault()}} 
                     color="inherit"
                 >
-                    {new Date().getFullYear()} {'.'}
+                    {new Date().getFullYear()} {' - Iconify.'}
                 </a>
             </div>
         )

@@ -1,8 +1,10 @@
-const React = require('react'),
-    { Provider } = require('react-redux'), 
-    store = require('../store/illustrator.js'),
-    ReactDOM = require('react-dom')
+const React = require('react')
+    , { Provider, connect } = require('react-redux')
+    , store = require('../store/store.js')
 ;
+
+const Data = require('../actions/data.js');
+const Illustrator = require('../actions/illustrator.js')
 
 const {
     Switch,
@@ -16,9 +18,9 @@ const Search = require('./Search');
 const About = require('./About');
 const PageNotFound = require('./PageNotFound');
 const Copyright = require('./Copyright');
-const Tester = require('./Tester');
+const Pets = require('./Pets');
 
-const Database = require('../db/Database');
+// const Database = require('../db/Database');
 
 // const { 
 //     makeStyles,
@@ -51,26 +53,39 @@ const {
 } = require('antd');
 require('antd/dist/antd.css');
 
+// const 
+//     { Provider, connect } = require('react-redux')
+//     , store = require('../store/store.js')
+// ;
+
 const { Header, Footer, Sider, Content } = Layout;
+// const Context = React.createContext();
+// const HelpersContext = React.createContext();
 class App extends React.Component {
 
     constructor(props) {
         super(props);
+
+        console.log('[App][constructor] props', props);
+
         this.state = {
-            dialogOpen: false,
-            modalOpen: false,
+            open: false,
         }
         this.toggleState = this.toggleState.bind(this);
+
+        console.log('[App][constructor][this]', this);
     }
     
     async componentDidMount() {
-        this.db = await Database.get();
-        console.log('DB', this.db);
-        this.db.pets.find().$.subscribe((items) => {
-            if (! items) return;
-            this.setState({items: items});
-            console.log('[componentDidMount][this.state]', this.state)
-        });
+        // const action = await this.props.getItems();
+        // console.log('[componentDidMount][action]', action);
+        // this.setState({ 
+        //     items : action.items
+        // });
+
+        // console.log('[App].context.store', this.context.store);
+        // console.log('[App].context', this.context);
+        // console.log('[App]', this);
     }    
 
     toggleState(e, state) {
@@ -108,43 +123,55 @@ class App extends React.Component {
 
     render() {
         return (
-            <Provider store={store}>
-                <React.Fragment>
-                    <Router location={'/'} context={{}}>
-                        <Layout style={this.bodyStyles()}>
-                            <Header style={this.headerStyles()}>
-                                <NavBar />
-                            </Header>
-                            
-                            <Content style={this.sectionStyles()}>
-                                <Layout style={this.containerStyles()}>
-                                    <Content style={this.containerStyles()}>
-                                        <Tester store={store} />
-                                        <Switch>
-                                            <Route exact path={'/'}>
-                                                <Home db={this.db} />
-                                            </Route>
-                                            <Route exact path={'/about'} component={About}/>
-                                            <Route exact path={'/search'}>
-                                                <Search db={this.db} />
-                                            </Route>
-                                            <Route exact component={PageNotFound}/>
-                                        </Switch>
-                                    </Content>
-                                </Layout>
+            <Router location={'/'} context={{store: store}}>
+                <Layout style={this.bodyStyles()}>
+                    <Header style={this.headerStyles()}>
+                        <NavBar />
+                    </Header>
+                    
+                    <Content style={this.sectionStyles()}>
+                        <Layout style={this.containerStyles()}>
+                            <Content style={this.containerStyles()}>
+                                <Pets />
+                                <Switch>
+                                    <Route exact path={'/'}>
+                                        <Home />
+                                    </Route>
+                                    <Route exact path={'/about'} component={About}/>
+                                    <Route exact path={'/search'}>
+                                        <Search />
+                                    </Route>
+                                    <Route exact component={PageNotFound}/>
+                                </Switch>
                             </Content>
-
-                            <Footer style={this.sectionStyles()}>
-                                <Copyright />
-                            </Footer>
                         </Layout>
+                    </Content>
 
-                    </Router>
-                </React.Fragment>
-            </Provider>
+                    <Footer style={this.sectionStyles()}>
+                        <Copyright />
+                    </Footer>
+                </Layout>
+            </Router>
         );
     }
 
 }
+
+// const mapStateToProps = (state) => {
+//     return {
+//         open : state.data.open,
+//     };
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         getItems : async () => {
+//             const action = await dispatch( Data.getAll() );
+//             return action.items;
+//         }
+//     };
+// };
+  
+// module.exports = connect(mapStateToProps, mapDispatchToProps)(App)
 
 module.exports = App;

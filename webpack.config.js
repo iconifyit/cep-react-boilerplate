@@ -7,7 +7,6 @@ const
 	, CopyWebpackPlugin = require('copy-webpack-plugin')
 	, { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-
 module.exports = {
 	target: 'node',
 	mode  : 'development',
@@ -77,19 +76,17 @@ module.exports = {
             filename: 'client/theme/css/client.all.css'
         }),
 		new webpack.ProvidePlugin({
-			path  : 'path',
-			fs     : 'fs',
+            path  : 'path',
+            fs     : 'fs',
             ThemeSwitcher       : 'client/lib/ThemeSwitcher/ThemeSwitcher.js',
             CSLib               : 'client/lib/CSInterface/CSInterface.js',
             jsxConsole          : 'client/lib/jsx-console/jsx-console.js',
             flyoutMenuImpl      : 'client/lib/FlyoutMenu/FlyoutMenuImpl.js',
             ContextMenuRouter   : 'client/lib/ContextMenuRouter/ContextMenuRouter.js',
             ContextMenuJSON     : 'client/lib/ContextMenuRouter/ContextMenuExample.json',
-            // darkTheme           : 'client/theme/css/topcoat-desktop-dark.min.css',
-            // lightTheme          : 'client/theme/css/topcoat-desktop-light.min.css',
-            // styles              : 'client/theme/css/styles.css',
-            // fontCss             : 'client/theme/font/stylesheet.css'
-		})
+            MacAddress          : 'macaddress',
+            Helpers             : 'client/lib/Helpers.js',
+        })
 	],
 
 	module : {

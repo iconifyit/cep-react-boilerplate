@@ -7,7 +7,6 @@ class Search extends React.Component {
             active: false,
             value: ''
         };
-        this.db = props.db;
     }
 
     handleChange(e) {
